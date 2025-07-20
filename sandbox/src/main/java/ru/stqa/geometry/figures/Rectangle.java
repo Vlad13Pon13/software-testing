@@ -2,7 +2,9 @@ package ru.stqa.geometry.figures;
 
 public class Rectangle {
     public static void printRectangleArea(double sideOne, double sideTwo) {
-        System.out.println("Площадь прямоугольника со сторонами " + sideOne + " и " + sideTwo + " = " + rectangleArea(sideOne,sideTwo));
+        String text = String.format(
+                "Площадь прямоугольника со сторонами %.1f  и %.1f  = %.1f",sideOne,sideTwo,rectangleArea(sideOne,sideTwo));
+        System.out.println(text);
 
     }
 
