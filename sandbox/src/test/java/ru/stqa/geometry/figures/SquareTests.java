@@ -9,16 +9,19 @@ public class SquareTests {
     @Test
     @DisplayName("Проверка вычисления площади квадрата")
     void calculateSquareAreaTest(){
-        double squareArea = Square.area(10.0);
-        Assertions.assertEquals(100.0, squareArea, "Площадь квадрата расчитана некорректно");
+        Square square = new Square(5.0);
+        double squareArea = square.area();
+        Assertions.assertEquals(25.0, squareArea, "Площадь квадрата расчитана некорректно");
 
     }
 
     @Test
     @DisplayName("Проверка вычисления периметра квадрата")
     void calculatePerimeterSquareTest(){
-        double squarePerimeter = Square.perimeter(5.0);
-        Assertions.assertEquals(20.0, squarePerimeter, "Периметр квадрата расчитан некорректно");
+        Square square = new Square( 10.0);
+        double squarePerimeter = square.perimeter();
+        Assertions.assertEquals(40.0, squarePerimeter, "Периметр квадрата расчитан некорректно");
+
     }
 
 

@@ -2,17 +2,21 @@ package ru.stqa.geometry;
 
 import ru.stqa.geometry.figures.Rectangle;
 import ru.stqa.geometry.figures.Square;
+import ru.stqa.geometry.printCalculate.PrintCalculateGeometry;
 
 public class Geometry {
     public static void main(String[] args) {
         //Площадь квадрата
-        Square.printSquareArea(7.0);
-        Square.printSquareArea( 5.0);
-        Square.printSquareArea(3.0);
-
+        PrintCalculateGeometry.printSquareArea(new Square(8.0));
         //Площадь прямоугольника
-        Rectangle.printRectangleArea(5.0, 10.5);
-        Rectangle.printRectangleArea(2.0, 18.4);
+        PrintCalculateGeometry.printRectangleArea(new Rectangle(5.0, 20.0));
+
+        //Периметер квадрата
+        PrintCalculateGeometry.printSquarePerimeter(new Square(10.0));
+        //Периметер Прямоугольника
+        PrintCalculateGeometry.printRectanglePerimeter(new Rectangle(5.0, 20.0));
+
+
 
     }
 

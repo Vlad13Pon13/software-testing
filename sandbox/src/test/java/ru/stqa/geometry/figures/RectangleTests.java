@@ -9,15 +9,15 @@ public class RectangleTests {
     @Test
     @DisplayName("Проверка вычисления площади прямоугольника")
     void calculateRectangleAreaTest(){
-        double rectangleArea = Rectangle.area(5.0, 10.0);
-        Assertions.assertEquals(50.0, rectangleArea, "Площадь расчитана некорректно");
+        double rectangleAre = new Rectangle(5.0, 10.0).area();
+        Assertions.assertEquals(50.0, rectangleAre, "Площадь расчитана некорркектно");
     }
 
     @Test
     @DisplayName("Проверка вычисления периметра прямоугольника")
     void calculateRectanglePerimeterTest(){
-        double rectanglePerimeter = Rectangle.perimeter(8.0, 5.0);
-        Assertions.assertEquals(26.0, rectanglePerimeter, "Перемитер расчитан некорректно");
+        double rectanglePerimeter = new Rectangle(13.0, 20.0).perimeter();
+        Assertions.assertEquals(66.0, rectanglePerimeter, "Периметр расчитан некорркектно");
     }
 
 

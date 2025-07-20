@@ -1,20 +1,40 @@
 package ru.stqa.geometry.figures;
 
 public class Rectangle {
-    public static void printRectangleArea(double sideOne, double sideTwo) {
-        String text = String.format(
-                "Площадь прямоугольника со сторонами %.1f  и %.1f  = %.1f",sideOne,sideTwo, area(sideOne,sideTwo));
-        System.out.println(text);
 
+    private double width;
+    private double height;
+
+    public Rectangle( double width, double height){
+        this.height=height;
+        this.width=width;
     }
 
-    public static double area(double a, double b) {
-        return a * b;
+    public double getWidth(){
+        return width;
     }
 
-    public static double perimeter(double a , double b) {
-        return (a + b) * 2;
+    public void setWidth( double width){
+        this.width = width;
     }
+
+    public double getHeight(){
+        return height;
+    }
+
+    public void setHeight (double height){
+        this.height=height;
+    }
+
+    public double area(){
+        return this.width * this.height;
+    }
+
+    public double perimeter(){
+        return 2 * (this.height + this.width);
+    }
+
+
 
 
 }
