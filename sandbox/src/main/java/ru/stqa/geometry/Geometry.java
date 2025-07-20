@@ -10,7 +10,7 @@ public class Geometry {
         Square.printSquareArea( 5.0);
         Square.printSquareArea(3.0);
 
-        //Площадь треугольника
+        //Площадь прямоугольника
         Rectangle.printRectangleArea(5.0, 10.5);
         Rectangle.printRectangleArea(2.0, 18.4);
 

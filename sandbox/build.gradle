@@ -5,6 +5,12 @@ plugins {
 group = 'org.example'
 version = '1.0-SNAPSHOT'
 
+compileJava.options.encoding = 'Windows-1251'
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'Windows-1251'
+}
+
 repositories {
     mavenCentral()
 }
@@ -12,8 +18,15 @@ repositories {
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
-}
+
+    }
+
 
 test {
     useJUnitPlatform()
+    compileTestJava.options.encoding = 'UTF-8'
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+    }
+
 }
