@@ -5,11 +5,6 @@ plugins {
 group = 'org.example'
 version = '1.0-SNAPSHOT'
 
-compileJava.options.encoding = 'Windows-1251'
-
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'Windows-1251'
-}
 
 repositories {
     mavenCentral()
@@ -24,9 +19,11 @@ dependencies {
 
 test {
     useJUnitPlatform()
-    compileTestJava.options.encoding = 'UTF-8'
-    tasks.withType(JavaCompile).configureEach {
-        options.encoding = 'UTF-8'
+    tasks.withType(Test).configureEach {
+        // Устанавливаем системную переменную для тестов
+        systemProperty "file.encoding", "UTF-8"
+        // Передаем JVM аргумент
+        jvmArgs = ["-Dfile.encoding=UTF-8"]
     }
 
 }
