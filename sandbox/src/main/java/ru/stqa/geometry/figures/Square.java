@@ -18,10 +18,6 @@ public class Square {
     }
 
 
-    public static double area(double a) {
-        return a * a;
-    }
-
     public double getSide(){
         return side;
     }

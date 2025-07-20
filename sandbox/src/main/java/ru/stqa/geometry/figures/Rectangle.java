@@ -22,7 +22,7 @@ public class Rectangle {
         return height;
     }
 
-    public void setHeight (double height){
+    public void setHeight(double height){
         this.height=height;
     }
 
