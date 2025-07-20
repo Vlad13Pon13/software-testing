@@ -5,13 +5,6 @@ plugins {
 group = 'org.example'
 version = '1.0-SNAPSHOT'
 
-//Добавил настройку, так как были проблемы с отображение кирилицы в консоли
-compileJava.options.encoding = 'Windows-1251'
-
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'Windows-1251'
-}
-
 repositories {
     mavenCentral()
 }
