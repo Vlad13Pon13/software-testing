@@ -2,19 +2,19 @@
 public class Hello {
 
     public static void main(String[] args) {
-        String name = "software-testing";
-        System.out.println("Привет, " + name);
+        try {
+            int a = 1;
+            int b = 1;
+            int z = divide(a,b);
 
-        System.out.println(2 + 2);
-        System.out.println(2 * 2);
-        System.out.println(3 - 2);
-        System.out.println(3 / 2);
-        System.out.println((2 + 2) * 2);
+            System.out.println(z);
+        } catch (ArithmeticException exception) {
+            System.out.println("Division by zero is not allowed");
+        }
 
-        System.out.println("Hello, " + "world!");
-        System.out.println("2 + 2 = " + 4);
-        System.out.println("2 + 2 = " + (2 + 2));
+    }
 
-
+    private static int divide(int a, int b) {
+        return a / b;
     }
 }

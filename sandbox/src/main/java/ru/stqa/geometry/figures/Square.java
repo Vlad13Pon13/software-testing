@@ -5,6 +5,9 @@ public class Square {
     private double side;
 
     public Square (double side){
+        if (side < 0){
+            throw new IllegalArgumentException("Сторона квадрата не может быть отрицательной");
+        }
         this.side = side;
     }
 

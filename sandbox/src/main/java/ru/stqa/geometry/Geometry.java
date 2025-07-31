@@ -2,6 +2,7 @@ package ru.stqa.geometry;
 
 import ru.stqa.geometry.figures.Rectangle;
 import ru.stqa.geometry.figures.Square;
+import ru.stqa.geometry.figures.Triangle;
 import ru.stqa.geometry.printCalculate.PrintCalculateGeometry;
 
 public class Geometry {
@@ -12,6 +13,8 @@ public class Geometry {
         PrintCalculateGeometry.printSquareArea(new Square(8.0));
         //Площадь прямоугольника
         PrintCalculateGeometry.printRectangleArea(new Rectangle(5.0, 20.0));
+        //Площадь треугольника
+        PrintCalculateGeometry.printTriangleArea(new Triangle(3.0, 4.0, 5.0));
 
 
 
@@ -20,6 +23,8 @@ public class Geometry {
         PrintCalculateGeometry.printSquarePerimeter(new Square(10.0));
         //Периметер Прямоугольника
         PrintCalculateGeometry.printRectanglePerimeter(new Rectangle(5.0, 20.0));
+        //Периметр треугольника
+        PrintCalculateGeometry.printTrianglePerimetr(new Triangle(3.0, 4.0, 5.0));
 
 
 

@@ -29,7 +29,7 @@ public class Triangle {
     //Метод для нахождения площади треугольника по формуле Герона
     public double area() {
         double s = perimeter() / 2;
-        return Math.sqrt(s * (s - sideA) * (s - sideB) * (s - sideC));
+        return Math.sqrt(s * (s - this.sideA) * (s - this.sideB) * (s - this.sideC));
     }
 
     //Геттеры

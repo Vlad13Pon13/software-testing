@@ -55,7 +55,7 @@ public class TriangleTests {
     static Stream<Arguments> providerPositiveTriangle(){
         return Stream.of(
                 Arguments.of(3.0, 4.0, 5.0, 6.0),
-                Arguments.of(10.0, 12.0, 10.0, 48),
+                Arguments.of(10.0, 12.0, 10.0, 48.0),
                 Arguments.of(25.0, 20.0, 15.0, 150.0)
         );
 

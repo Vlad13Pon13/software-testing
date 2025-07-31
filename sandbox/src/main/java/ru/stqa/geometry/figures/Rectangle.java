@@ -1,29 +1,12 @@
 package ru.stqa.geometry.figures;
 
-public class Rectangle {
+public record Rectangle(double width, double height) {
 
-    private double width;
-    private double height;
 
-    public Rectangle( double width, double height){
-        this.height=height;
-        this.width=width;
-    }
-
-    public double getWidth(){
-        return width;
-    }
-
-    public void setWidth( double width){
-        this.width = width;
-    }
-
-    public double getHeight(){
-        return height;
-    }
-
-    public void setHeight(double height){
-        this.height=height;
+    public Rectangle{
+        if (width < 0 || height < 0){
+            throw new IllegalArgumentException("Сторона прямоугольника не можем быть отрницательной");
+        }
     }
 
     public double area(){
