@@ -1,5 +1,8 @@
 package ru.stqa.geometry.figures;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class Triangle {
 
     private double sideA;
@@ -43,6 +46,25 @@ public class Triangle {
 
     public double getSideC(){
         return  sideC;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Triangle triangle = (Triangle) o;
+
+        double[] sides = {sideA,sideB,sideC};
+        double[] sidesOthers = {triangle.sideA, triangle.sideB, triangle.sideC};
+
+        Arrays.sort(sides);
+        Arrays.sort(sidesOthers);
+
+        return Arrays.equals(sides,sidesOthers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sideA, sideB, sideC);
     }
 
 }

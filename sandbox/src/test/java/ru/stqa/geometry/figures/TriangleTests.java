@@ -2,6 +2,7 @@ package ru.stqa.geometry.figures;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -33,6 +34,19 @@ public class TriangleTests {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             double triangleArea = new Triangle(sideA, sideB, sideC).area();
         });
+
+    }
+
+    @Test
+    @DisplayName("Проверка на сравнение объектов")
+    public void compareTriangle(){
+        Triangle firstTriangle = new Triangle( 3.0, 4.0, 5.0);
+        Triangle secondTriangle = new Triangle( 4.0, 3.0, 5.0);
+        Triangle thirdTriangle = new Triangle(5.0, 4.0, 3.0);
+
+        Assertions.assertTrue(firstTriangle.equals(secondTriangle));
+        Assertions.assertTrue(firstTriangle.equals(thirdTriangle));
+        Assertions.assertTrue(thirdTriangle.equals(secondTriangle));
 
     }
 
