@@ -20,5 +20,7 @@ public class RectangleTests {
         Assertions.assertEquals(66.0, rectanglePerimeter, "Периметр расчитан некорркектно");
     }
 
+    //TODO дописать позитивные и негативыне тесты с параматеризацией
+
 
 }

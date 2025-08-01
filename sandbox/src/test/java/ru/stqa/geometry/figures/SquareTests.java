@@ -24,5 +24,15 @@ public class SquareTests {
 
     }
 
+    @Test
+    @DisplayName("Сверка квадрадтов")
+    public void compareSquare(){
+        Square firstSquare = new Square( 4.0);
+        Square secondSquare = new Square( 4.0);
+        Assertions.assertTrue(firstSquare.equals(secondSquare));
+    }
+
+    //TODO дописать позивтиные и негативные тесты с параметризацией
+
 
 }

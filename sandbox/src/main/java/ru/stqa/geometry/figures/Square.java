@@ -1,8 +1,22 @@
 package ru.stqa.geometry.figures;
 
+import java.util.Objects;
+
 public class Square {
 
     private double side;
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Square square = (Square) o;
+        return Double.compare(side, square.side) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(side);
+    }
 
     public Square (double side){
         if (side < 0){

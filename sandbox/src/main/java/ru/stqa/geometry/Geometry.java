@@ -17,7 +17,6 @@ public class Geometry {
         PrintCalculateGeometry.printTriangleArea(new Triangle(3.0, 4.0, 5.0));
 
 
-
         //Периметр фигур:
         //Периметер квадрата
         PrintCalculateGeometry.printSquarePerimeter(new Square(10.0));
