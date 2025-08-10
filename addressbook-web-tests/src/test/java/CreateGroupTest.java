@@ -19,7 +19,7 @@ public class CreateGroupTest {
             driver.manage().window().setSize(new Dimension(1920, 1080));
             driver.findElement(By.name("user")).sendKeys("admin");
             driver.findElement(By.name("pass")).sendKeys("secret");
-            driver.findElement(By.xpath("//input[@value=\'Login\']")).click();
+            driver.findElement(By.xpath("//input[@value='Login']")).click();
         }
 
     }
