@@ -1,6 +1,5 @@
 import models.GroupData;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -11,11 +10,11 @@ import java.util.stream.Stream;
 public class CreateGroupTest extends TestBase{
 
     @ParameterizedTest
-    @DisplayName("Создание групп")
+    @DisplayName("Создание групп по 4 сценариям")
     @MethodSource("prviderGroupData")
     public void canCreateGroup(GroupData Data) {
-        openGroupsPage();
-        createGroup(Data);
+        app.openGroupsPage();
+        app.createGroup(Data);
 
     }
 
