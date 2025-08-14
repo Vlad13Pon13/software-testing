@@ -1,3 +1,5 @@
+package manager;
+
 import models.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -12,7 +14,7 @@ public class ApplicationManager {
 
     final String url = "http://localhost/addressbook/";
 
-    void init() {
+    public void init() {
         if (webDriver == null){
             webDriver = new FirefoxDriver();
             Runtime.getRuntime().addShutdownHook(new Thread(webDriver::quit)); //дополнительно изучить для понимания
@@ -25,7 +27,7 @@ public class ApplicationManager {
         }
     }
 
-    protected boolean isElementPresent(By locator) {
+    public boolean isElementPresent(By locator) {
         try {
             webDriver.findElement(locator);
             return true;
@@ -35,7 +37,7 @@ public class ApplicationManager {
 
     }
 
-    protected void createGroup(GroupData group) {
+    public void createGroup(GroupData group) {
         webDriver.findElement(By.name("new")).click();
         webDriver.findElement(By.name("group_name")).click();
         webDriver.findElement(By.name("group_name")).sendKeys(group.name());
@@ -45,17 +47,17 @@ public class ApplicationManager {
         webDriver.findElement(By.linkText("group page")).click();
     }
 
-    protected void openGroupsPage() {
+    public void openGroupsPage() {
         if (!isElementPresent(By.name("new"))) {
             webDriver.findElement(By.linkText("groups")).click();
         }
     }
 
-    protected boolean isGroupPresent() {
+    public boolean isGroupPresent() {
         return isElementPresent(By.name("selected[]"));
     }
 
-    protected void removeAllGroup() {
+    public void removeAllGroup() {
         //отмечаем все чек-боксы, если создано несколько тестовых групп
         List<WebElement> checkboxes = webDriver.findElements(By.name("selected[]"));
         for (WebElement checkbox : checkboxes){

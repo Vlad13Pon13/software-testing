@@ -1,8 +1,7 @@
-import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+package tests;
 
-import java.util.List;
+import manager.ApplicationManager;
+import org.junit.jupiter.api.BeforeEach;
 
 public class TestBase {
 

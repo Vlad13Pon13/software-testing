@@ -1,3 +1,5 @@
+package tests;
+
 import models.GroupData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,7 +11,7 @@ public class RemoveGroupsTest extends TestBase {
     public void removeGroup() {
         app.openGroupsPage();
         if (!app.isGroupPresent()) {
-            app.createGroup(new GroupData());
+            app.createGroup(new GroupData().withName("ifEmptyGroupList"));
         }
         app.removeAllGroup();
     }
