@@ -9,11 +9,10 @@ public class RemoveGroupsTest extends TestBase {
     @Test()
     @DisplayName("Тест удаления всех групп контактов")
     public void removeGroup() {
-        app.openGroupsPage();
-        if (!app.isGroupPresent()) {
-            app.createGroup(new GroupData().withName("ifEmptyGroupList"));
+        if (!app.group().isGroupPresent()) {
+            app.group().createGroup(new GroupData().withName("ifEmptyGroupList"));
         }
-        app.removeAllGroup();
+        app.group().removeAllGroup();
     }
 
 

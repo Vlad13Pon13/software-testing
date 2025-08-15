@@ -15,8 +15,7 @@ public class CreateGroupTest extends TestBase{
     @DisplayName("Создание групп по 4 сценариям")
     @MethodSource("prviderGroupData")
     public void canCreateGroup(GroupData Data) {
-        app.openGroupsPage();
-        app.createGroup(Data);
+        app.group().createGroup(Data);
 
     }
 
