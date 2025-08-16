@@ -3,7 +3,10 @@ package manager;
 import models.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class GroupHelper {
@@ -24,11 +27,15 @@ public class GroupHelper {
     public void createGroup(GroupData group) {
         openGroupsPage();
         applicationManager.webDriver.findElement(By.name("new")).click();
+        applicationManager.waitElementOnPage("name", "group_name"); // оиждаем пока элемент group_name прогрузится на страницу
         applicationManager.webDriver.findElement(By.name("group_name")).click();
         applicationManager.webDriver.findElement(By.name("group_name")).sendKeys(group.name());
+        applicationManager.webDriver.findElement(By.name("group_header")).click();
         applicationManager.webDriver.findElement(By.name("group_header")).sendKeys(group.header());
+        applicationManager.webDriver.findElement(By.name("group_footer")).click();
         applicationManager.webDriver.findElement(By.name("group_footer")).sendKeys(group.footer());
         applicationManager.webDriver.findElement(By.name("submit")).click();
+        applicationManager.waitElementOnPage("linkText", "group page"); // оиждаем пока элемент group page прогрузится на страницу
         applicationManager.webDriver.findElement(By.linkText("group page")).click();
     }
 

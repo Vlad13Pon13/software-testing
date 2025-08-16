@@ -6,7 +6,7 @@ public class LoginHelper {
 
     private final ApplicationManager applicationManager;
 
-    public LoginHelper(ApplicationManager applicationManager){
+    public LoginHelper(ApplicationManager applicationManager) {
         this.applicationManager = applicationManager;
     }
 
@@ -16,4 +16,5 @@ public class LoginHelper {
         applicationManager.webDriver.findElement(By.name("pass")).sendKeys(password);
         applicationManager.webDriver.findElement(By.xpath("//input[@value='Login']")).click();
     }
+
 }

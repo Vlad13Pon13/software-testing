@@ -3,7 +3,12 @@ package manager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class ApplicationManager {
     protected   WebDriver webDriver;
@@ -13,9 +18,15 @@ public class ApplicationManager {
 
     final String url = "http://localhost/addressbook/";
 
-    public void init() {
+    public void init(String browser) {
         if (webDriver == null){
-            webDriver = new FirefoxDriver();
+            if ("firefox".equals(browser)){
+                webDriver = new FirefoxDriver();
+            } else if ("chrome".equals(browser)){
+                webDriver = new ChromeDriver();
+            } else {
+                throw new IllegalArgumentException(String.format("Unknown browser - %s", browser));
+            }
             Runtime.getRuntime().addShutdownHook(new Thread(webDriver::quit)); //дополнительно изучить для понимания
             //Авторизация
             webDriver.get(url);
@@ -47,4 +58,18 @@ public class ApplicationManager {
         }
 
     }
+
+    public void waitElementOnPage(String value, String located){
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(3));
+        switch (value) {
+            case "linkText" -> wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText(located)));
+            case "name" -> wait.until(ExpectedConditions.visibilityOfElementLocated(By.name(located)));
+            case "xpath" -> wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(located)));
+            case "cssSelector" -> wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(located)));
+            case null, default ->
+                    throw new IllegalArgumentException(String.format("Передан неизвестный метод поиска элемента - %s", value));
+        }
+    }
+
 }
+
