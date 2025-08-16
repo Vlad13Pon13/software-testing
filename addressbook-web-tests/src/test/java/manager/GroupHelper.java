@@ -3,40 +3,49 @@ package manager;
 import models.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.List;
 
-public class GroupHelper {
-
-    private final ApplicationManager applicationManager;
+public class GroupHelper extends HelperBase{
 
     public GroupHelper(ApplicationManager applicationManager){
-        this.applicationManager = applicationManager;
+        super(applicationManager);
 
     }
 
     public void openGroupsPage() {
         if (!applicationManager.group().applicationManager.isElementPresent(By.name("new"))) {
-            applicationManager.webDriver.findElement(By.linkText("groups")).click();
+            click(By.linkText("groups"));
         }
     }
 
     public void createGroup(GroupData group) {
         openGroupsPage();
-        applicationManager.webDriver.findElement(By.name("new")).click();
-        applicationManager.waitElementOnPage("name", "group_name"); // оиждаем пока элемент group_name прогрузится на страницу
-        applicationManager.webDriver.findElement(By.name("group_name")).click();
-        applicationManager.webDriver.findElement(By.name("group_name")).sendKeys(group.name());
-        applicationManager.webDriver.findElement(By.name("group_header")).click();
-        applicationManager.webDriver.findElement(By.name("group_header")).sendKeys(group.header());
-        applicationManager.webDriver.findElement(By.name("group_footer")).click();
-        applicationManager.webDriver.findElement(By.name("group_footer")).sendKeys(group.footer());
-        applicationManager.webDriver.findElement(By.name("submit")).click();
-        applicationManager.waitElementOnPage("linkText", "group page"); // оиждаем пока элемент group page прогрузится на страницу
-        applicationManager.webDriver.findElement(By.linkText("group page")).click();
+        initGroupCreation();
+        waitElementOnPage(By.name("group_name")); // ожидаем пока элемент group_name прогрузится на страницу
+        fillGroupForm(group);
+        submitGroupCreation();
+        waitElementOnPage(By.linkText("group page"));// ожидаем пока элемент group page прогрузится на страницу
+        returnToGroupsPage();
+    }
+
+
+    public void removeAllGroup() {
+        openGroupsPage();
+        selectAllGroup();//отмечаем все чек-боксы, если создано несколько тестовых групп
+        removeSelectedGroup();
+        waitElementOnPage(By.linkText("group page"));// ожидаем пока элемент group page прогрузится на страницу
+        returnToGroupsPage();
+    }
+
+    public void modifyGroup(GroupData modyfyGroup) {
+        openGroupsPage();
+        selectGroup();
+        initGroupModification();
+        fillGroupForm(modyfyGroup);
+        submitGroupModification();
+        waitElementOnPage(By.linkText("group page"));// ожидаем пока элемент group page прогрузится на страницу
+        returnToGroupsPage();
     }
 
     public boolean isGroupPresent() {
@@ -44,16 +53,49 @@ public class GroupHelper {
         return applicationManager.isElementPresent(By.name("selected[]"));
     }
 
-    public void removeAllGroup() {
-        openGroupsPage();
-        //отмечаем все чек-боксы, если создано несколько тестовых групп
+    private void returnToGroupsPage() {
+        click(By.linkText("group page"));
+    }
+
+    private void submitGroupModification() {
+        click(By.name("update"));
+    }
+
+    private void fillGroupForm(GroupData group) {
+        type(By.name("group_name"), group.name());
+        type(By.name("group_header"), group.header());
+        type(By.name("group_footer"), group.footer());
+
+    }
+
+    private void initGroupModification() {
+        click(By.name("edit"));
+    }
+
+    private void selectGroup() {
+        click(By.name("selected[]"));
+    }
+
+
+    private void selectAllGroup(){
         List<WebElement> checkboxes = applicationManager.webDriver.findElements(By.name("selected[]"));
         for (WebElement checkbox : checkboxes){
             if (!checkbox.isSelected()){
                 checkbox.click();
             }
         }
-        applicationManager.webDriver.findElement(By.name("delete")).click();
-        applicationManager.webDriver.findElement(By.linkText("group page")).click();
     }
+
+    private void submitGroupCreation() {
+        click(By.name("submit"));
+    }
+
+    private void initGroupCreation() {
+        click(By.name("new"));
+    }
+
+    private void removeSelectedGroup() {
+        click(By.name("delete"));
+    }
+
 }

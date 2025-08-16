@@ -59,17 +59,6 @@ public class ApplicationManager {
 
     }
 
-    public void waitElementOnPage(String value, String located){
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(3));
-        switch (value) {
-            case "linkText" -> wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText(located)));
-            case "name" -> wait.until(ExpectedConditions.visibilityOfElementLocated(By.name(located)));
-            case "xpath" -> wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(located)));
-            case "cssSelector" -> wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(located)));
-            case null, default ->
-                    throw new IllegalArgumentException(String.format("Передан неизвестный метод поиска элемента - %s", value));
-        }
-    }
 
 }
 
