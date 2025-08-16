@@ -22,10 +22,10 @@ public class GroupHelper extends HelperBase{
     public void createGroup(GroupData group) {
         openGroupsPage();
         initGroupCreation();
-   //     waitElementOnPage(By.name("group_name")); // ожидаем пока элемент group_name прогрузится на страницу
+        waitElementOnPage(By.name("group_name")); // ожидаем пока элемент group_name прогрузится на страницу
         fillGroupForm(group);
         submitGroupCreation();
- //       waitElementOnPage(By.linkText("group page"));// ожидаем пока элемент group page прогрузится на страницу
+        waitElementOnPage(By.linkText("group page"));// ожидаем пока элемент group page прогрузится на страницу
         returnToGroupsPage();
     }
 
@@ -34,7 +34,7 @@ public class GroupHelper extends HelperBase{
         openGroupsPage();
         selectAllGroup();//отмечаем все чек-боксы, если создано несколько тестовых групп
         removeSelectedGroup();
- //       waitElementOnPage(By.linkText("group page"));// ожидаем пока элемент group page прогрузится на страницу
+        waitElementOnPage(By.linkText("group page"));// ожидаем пока элемент group page прогрузится на страницу
         returnToGroupsPage();
     }
 
@@ -44,7 +44,7 @@ public class GroupHelper extends HelperBase{
         initGroupModification();
         fillGroupForm(modyfyGroup);
         submitGroupModification();
-    //    waitElementOnPage(By.linkText("group page"));// ожидаем пока элемент group page прогрузится на страницу
+        waitElementOnPage(By.linkText("group page"));// ожидаем пока элемент group page прогрузится на страницу
         returnToGroupsPage();
     }
 
