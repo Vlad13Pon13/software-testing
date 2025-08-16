@@ -24,9 +24,5 @@ public class HelperBase {
     }
 
 
-    protected void waitElementOnPage(By locator){
-        WebDriverWait wait = new WebDriverWait(applicationManager.webDriver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 
-    }
 }
