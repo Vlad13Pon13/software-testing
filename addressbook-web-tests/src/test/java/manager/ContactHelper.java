@@ -18,18 +18,17 @@ public class ContactHelper extends HelperBase{
 
     public void createNewContract(ContactData data){
         openHomePage();
-        initCotractCreation();
+        initContactCreation();
         fillContractForm(data);
         submitContactCreation();
         returnHomePage();
-
-
 
     }
 
     private void fillContractForm(ContactData data){
         type(By.name("firstname"),data.firstName);
         type(By.name("middlename"),data.middleName);
+        type(By.name("lastname"),data.lastName);
         type(By.name("nickname"),data.nickName);
         type(By.name("title"), data.title);
         type(By.name("company"),data.company);
@@ -51,7 +50,17 @@ public class ContactHelper extends HelperBase{
 
     }
 
-    private  void initCotractCreation() {
+    public void removeAllContact(){
+        openHomePage();
+        selectAllForDelete();
+        removeContacts();
+        //applicationManager.webDriver.switchTo().alert().accept();
+
+
+
+    }
+
+    private  void initContactCreation() {
         click(By.linkText("add new"));
 
     }
@@ -61,6 +70,19 @@ public class ContactHelper extends HelperBase{
 
     private void returnHomePage(){
         click(By.linkText("home"));
+    }
+
+    public boolean isContactPresent(){
+        openHomePage();
+        return applicationManager.isElementPresent(By.name("selected[]"));
+    }
+
+    private void selectAllForDelete(){
+        click(By.xpath("//input[@id='MassCB']"));
+    }
+
+    private void removeContacts(){
+        click(By.xpath("//input[@value='Delete']"));
     }
 
 
