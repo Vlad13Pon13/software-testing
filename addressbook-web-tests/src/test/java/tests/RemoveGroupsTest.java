@@ -8,7 +8,7 @@ public class RemoveGroupsTest extends TestBase {
 
     @Test()
     @DisplayName("Тест удаления всех групп контактов")
-    public void removeGroup() throws InterruptedException {
+    public void removeGroup() {
         if (!app.group().isGroupPresent()) {
             app.group().createGroup(new GroupData().withName("ifEmptyGroupList"));
         }

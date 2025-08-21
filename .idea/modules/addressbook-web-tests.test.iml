@@ -3,6 +3,9 @@
   <component name="NewModuleRootManager">
     <output-test url="file://$MODULE_DIR$/../../addressbook-web-tests/build/classes/java/test" />
     <exclude-output />
+    <content url="file://$MODULE_DIR$/../../addressbook-web-tests/build/generated/sources/annotationProcessor/java/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../addressbook-web-tests/build/generated/sources/annotationProcessor/java/test" isTestSource="true" generated="true" />
+    </content>
     <content url="file://$MODULE_DIR$/../../addressbook-web-tests/src/test">
       <sourceFolder url="file://$MODULE_DIR$/../../addressbook-web-tests/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../addressbook-web-tests/src/test/resources" type="java-test-resource" />
@@ -10,6 +13,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="addressbook-web-tests.main" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.projectlombok:lombok:1.18.38" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter:5.10.0" level="project" />
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-java:4.35.0" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-params:5.10.0" level="project" />

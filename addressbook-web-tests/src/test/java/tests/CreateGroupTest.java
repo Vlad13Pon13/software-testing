@@ -13,13 +13,13 @@ public class CreateGroupTest extends TestBase{
 
     @ParameterizedTest
     @DisplayName("Создание групп по 4 сценариям")
-    @MethodSource("prviderGroupData")
+    @MethodSource("providerGroupData")
     public void canCreateGroup(GroupData Data) {
         app.group().createGroup(Data);
 
     }
 
-    static Stream<Arguments> prviderGroupData(){
+    static Stream<Arguments> providerGroupData(){
         return Stream.of(
                 Arguments.of(new GroupData().withHeader("testHeader")),
                 Arguments.of(new GroupData().withName("testName")),
