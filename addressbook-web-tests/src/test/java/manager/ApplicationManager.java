@@ -5,15 +5,13 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 
 public class ApplicationManager {
     protected   WebDriver webDriver;
     private LoginHelper session;
     private GroupHelper group;
+    private ContactHelper contact;
 
 
     final String url = "http://localhost/addressbook/";
@@ -59,6 +57,12 @@ public class ApplicationManager {
 
     }
 
+    public ContactHelper contact(){
+        if (contact == null){
+            contact = new ContactHelper(this);
+        }
+        return contact;
+    }
 
 }
 

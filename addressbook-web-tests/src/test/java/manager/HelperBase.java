@@ -21,6 +21,13 @@ public class HelperBase {
         click(locator);
         applicationManager.webDriver.findElement(locator).clear();
         applicationManager.webDriver.findElement(locator).sendKeys(text);
+
+    }
+
+    protected void typeDate(By locator, By locatorTwo){
+        click(locator);
+        click(locatorTwo);
+
     }
 
     protected void waitElementOnPage(By locator){
