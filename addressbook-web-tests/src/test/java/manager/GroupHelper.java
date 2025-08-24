@@ -98,4 +98,8 @@ public class GroupHelper extends HelperBase{
         click(By.name("delete"));
     }
 
+    public int getGroupCount() {
+        openGroupsPage();
+        return applicationManager.webDriver.findElements(By.name("selected[]")).size();
+    }
 }

@@ -7,10 +7,10 @@ public class GroupModificationsTests extends TestBase{
 
     @Test()
     public void modifyGroup(){
-        if (!app.group().isGroupPresent()){
+        if (app.group().getGroupCount()==0){
             app.group().createGroup(new GroupData().withName("forModifyTest"));
         }
-        app.group().modifyGroup(new GroupData().withName("ModyfyTestName"));
+        app.group().modifyGroup(new GroupData().withName("ModifyTestName"));
 
 
     }
