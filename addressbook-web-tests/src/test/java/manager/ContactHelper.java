@@ -41,11 +41,11 @@ public class ContactHelper extends HelperBase{
         type(By.name("email2"),data.mailTwo);
         type(By.name("email3"),data.mailThree);
         type(By.name("homepage"),data.homepage);
-        typeDate(By.name("bday"),By.xpath(String.format("//option[. = '%s']", data.birthDay)));
-        typeDate(By.name("bmonth"),By.xpath(String.format("//option[. = '%s']", data.birthMonth)));
+        selectElementDate(By.name("bday"),data.birthDay);
+        selectElementDate(By.name("bmonth"), data.birthMonth);
         type(By.name("byear"), data.birthYear);
-        typeDate(By.name("aday"),By.xpath(String.format("//option[. = '%s']", data.anniversaryDay)));
-        typeDate(By.name("amonth"),By.xpath(String.format("//option[. = '%s']", data.anniversaryMonth)));
+        selectElementDate(By.name("aday"), data.anniversaryDay);
+        selectElementDate(By.name("amonth"), data.anniversaryMonth);
         type(By.name("ayear"), data.anniversaryYear);
 
     }
@@ -54,9 +54,6 @@ public class ContactHelper extends HelperBase{
         openHomePage();
         selectAllForDelete();
         removeContacts();
-        //applicationManager.webDriver.switchTo().alert().accept();
-
-
 
     }
 

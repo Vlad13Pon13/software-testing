@@ -1,7 +1,9 @@
 package manager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -24,15 +26,19 @@ public class HelperBase {
 
     }
 
-    protected void typeDate(By locator, By locatorTwo){
-        click(locator);
-        click(locatorTwo);
-
-    }
-
     protected void waitElementOnPage(By locator){
         WebDriverWait wait = new WebDriverWait(applicationManager.webDriver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+
+    }
+
+    protected void selectElementDate(By locator, String date){
+        WebElement dropdown = applicationManager.webDriver.findElement(locator);
+        Select select = new Select(dropdown);
+        select.selectByValue(date);
+
+
+
 
     }
 
