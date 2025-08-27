@@ -1,6 +1,7 @@
 package tests;
 
 import models.ContactData;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -14,8 +15,10 @@ public class CreateContactTest extends TestBase {
     @DisplayName("Добавление контактов")
     @MethodSource("providerContactData")
     public void test(ContactData data){
-
+        int contactBeforeTest = app.contact().countContact();
         app.contact().createNewContract(data);
+        int contactAfterTest =app.contact().countContact();
+        Assertions.assertEquals(contactBeforeTest + 1, contactAfterTest);
 
     }
 
@@ -29,7 +32,7 @@ public class CreateContactTest extends TestBase {
                         "he",
                         "Acme",
                         "123 Elm Street",
-                        "555-5678",
+                        randomPhoneNumber(),
                         "john.doe@example.com"
                 );
 
@@ -41,7 +44,7 @@ public class CreateContactTest extends TestBase {
                "she",
                "Acme",
                "123 Elm Street",
-               "555-5678",
+               randomPhoneNumber(),
                "Jane.Doe@example.com"
 
        );

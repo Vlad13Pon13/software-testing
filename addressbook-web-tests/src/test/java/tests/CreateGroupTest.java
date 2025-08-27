@@ -3,12 +3,12 @@ package tests;
 import models.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 
@@ -28,17 +28,27 @@ public class CreateGroupTest extends TestBase{
 
     }
 
-    @Test
-    public void canCreateGroupCycle(){
-        int n = 3;
+    @ParameterizedTest
+    @DisplayName("Создание провайдера с циклами и вложенными циклами")
+    @MethodSource("positiveGroupNameProvider")
+    public void canCreateGroupCycle(GroupData groupData){
+
         int countGroupBefore = app.group().getGroupCount();
 
-        for (int i = 0; i < n; i++){
-            app.group().createGroup(new GroupData().withName(randomString(new Random().nextInt(26))));
-        }
+        app.group().createGroup(groupData);
 
         int countGroupAfter = app.group().getGroupCount();
-        Assertions.assertEquals( countGroupBefore + n, countGroupAfter);
+        Assertions.assertEquals( countGroupBefore + 1 , countGroupAfter);
+
+    }
+
+    @ParameterizedTest
+    @MethodSource("negativeGroupCreation")
+    public void negativeCreateGroup(GroupData data){
+        int countBeforeTest = app.group().getGroupCount();
+        app.group().createGroup(data);
+        int countAfterTest = app.group().getGroupCount();
+        Assertions.assertEquals(countBeforeTest, countAfterTest);
 
     }
 
@@ -49,6 +59,31 @@ public class CreateGroupTest extends TestBase{
                 Arguments.of(new GroupData().withFooter("testFooter")),
                 Arguments.of(new GroupData())
         );
+    }
+
+    static List<GroupData> positiveGroupNameProvider(){
+        ArrayList<GroupData> list = new ArrayList<>();
+        for (String name : List.of("", "group_name")){
+            for (String header : List.of( "", "header_name")){
+                for (String footer : List.of("", "footer_name")){
+                    list.add(new GroupData(name,footer,header));
+                }
+            }
+        }
+
+        for (int i = 0; i<5; i++){
+            list.add(new GroupData(randomString(i * 10), randomString(i * 10),randomString( i * 10)));
+        }
+
+        return list;
+    }
+
+    static List<GroupData> negativeGroupCreation(){
+        ArrayList<GroupData> listData = new ArrayList<>(List.of(
+                new GroupData("group_name'", randomString(5), randomString(5))
+
+        ));
+        return listData;
     }
 
 
