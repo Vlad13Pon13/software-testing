@@ -31,11 +31,11 @@ public class ContactData {
     public String mailTwo="";
     public String mailThree="";
     public String homepage="";
-    public String birthDay="";
-    public String birthMonth="";
+    public String birthDay="0";
+    public String birthMonth="-";
     public String birthYear="";
-    public String anniversaryDay="";
-    public String anniversaryMonth="";
+    public String anniversaryDay="0";
+    public String anniversaryMonth="-";
     public String anniversaryYear="";
 
 }
