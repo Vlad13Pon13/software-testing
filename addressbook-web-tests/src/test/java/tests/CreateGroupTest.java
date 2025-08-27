@@ -40,8 +40,6 @@ public class CreateGroupTest extends TestBase{
         int countGroupAfter = app.group().getGroupCount();
         Assertions.assertEquals( countGroupBefore + n, countGroupAfter);
 
-
-
     }
 
     static Stream<Arguments> providerGroupData(){
@@ -52,6 +50,8 @@ public class CreateGroupTest extends TestBase{
                 Arguments.of(new GroupData())
         );
     }
+
+
 
 
 
