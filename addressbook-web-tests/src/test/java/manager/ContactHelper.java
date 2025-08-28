@@ -1,6 +1,7 @@
 package manager;
 
 import models.ContactData;
+import models.GroupData;
 import org.openqa.selenium.By;
 
 public class ContactHelper extends HelperBase{
@@ -86,6 +87,27 @@ public class ContactHelper extends HelperBase{
         openHomePage();
         return applicationManager.webDriver.findElements(By.name("selected[]")).size();
     };
+
+    public void modifyContact(ContactData data) {
+        openHomePage();
+        selectContactforModify();
+        fillContractForm(data);
+        acceptChange();
+        returnHomePageAfterUpdate();
+
+    }
+
+    private void returnHomePageAfterUpdate() {
+        click(By.linkText("home page"));
+    }
+
+    private void acceptChange() {
+        click(By.name("update"));
+    }
+
+    private void selectContactforModify() {
+        click(By.cssSelector("img[src='icons/pencil.png']"));
+    }
 
 
 }

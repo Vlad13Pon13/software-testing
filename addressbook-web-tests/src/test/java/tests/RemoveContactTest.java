@@ -2,6 +2,7 @@ package tests;
 
 import models.ContactData;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class RemoveContactTest extends TestBase{

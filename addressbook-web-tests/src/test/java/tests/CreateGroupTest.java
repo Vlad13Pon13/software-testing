@@ -66,13 +66,16 @@ public class CreateGroupTest extends TestBase{
         for (String name : List.of("", "group_name")){
             for (String header : List.of( "", "header_name")){
                 for (String footer : List.of("", "footer_name")){
-                    list.add(new GroupData(name,footer,header));
+                    list.add(new GroupData("", name,footer,header));
                 }
             }
         }
 
         for (int i = 0; i<5; i++){
-            list.add(new GroupData(randomString(i * 10), randomString(i * 10),randomString( i * 10)));
+            list.add(new GroupData().
+                    withName(randomString(i * 10)).
+                    withHeader(randomString(i * 10)).
+                    withFooter(randomString(i * 10)));
         }
 
         return list;
@@ -80,8 +83,7 @@ public class CreateGroupTest extends TestBase{
 
     static List<GroupData> negativeGroupCreation(){
         ArrayList<GroupData> listData = new ArrayList<>(List.of(
-                new GroupData("group_name'", randomString(5), randomString(5))
-
+                new GroupData().withName("group_name'").withHeader(randomString(5)).withFooter(randomString(5))
         ));
         return listData;
     }
