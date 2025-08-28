@@ -1,24 +1,28 @@
 package models;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Objects;
+
 @Data
 @RequiredArgsConstructor
+@EqualsAndHashCode
 public class ContactData {
+    public String id;
     @NonNull
     public String firstName;
-    @NonNull
-    public String middleName;
+
+    public String middleName="";
     @NonNull
     public String lastName;
-    @NonNull
-    public String nickName;
-    @NonNull
-    public String title;
-    @NonNull
-    public String company;
+    public String nickName="";
+
+    public String title="";
+
+    public String company="";
     @NonNull
     public String address;
     public String home ="";
