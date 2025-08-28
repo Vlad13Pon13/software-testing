@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -33,22 +34,31 @@ public class CreateGroupTest extends TestBase{
     @MethodSource("positiveGroupNameProvider")
     public void canCreateGroupCycle(GroupData groupData){
 
-        int countGroupBefore = app.group().getGroupCount();
+        List<GroupData> oldGroups = app.group().getList();
 
         app.group().createGroup(groupData);
 
-        int countGroupAfter = app.group().getGroupCount();
-        Assertions.assertEquals( countGroupBefore + 1 , countGroupAfter);
+        List<GroupData> newGroups = app.group().getList();
+        Comparator<GroupData> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+        };
+        newGroups.sort(compareById);
+
+        List<GroupData> expectedList = new ArrayList<>(oldGroups);
+        expectedList.add(groupData.withHId(newGroups.get(newGroups.size()-1).id()).withHeader("").withFooter(""));
+        expectedList.sort(compareById);
+        Assertions.assertEquals(newGroups, expectedList);
+
 
     }
 
     @ParameterizedTest
     @MethodSource("negativeGroupCreation")
     public void negativeCreateGroup(GroupData data){
-        int countBeforeTest = app.group().getGroupCount();
+        var oldGroups = app.group().getList();
         app.group().createGroup(data);
-        int countAfterTest = app.group().getGroupCount();
-        Assertions.assertEquals(countBeforeTest, countAfterTest);
+        var newGroups = app.group().getList();
+        Assertions.assertEquals(oldGroups, newGroups);
 
     }
 

@@ -5,41 +5,33 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class RemoveContactTest extends TestBase{
 
 
     @Test
+    @DisplayName("Удаление нескольких контактов")
     public void removeContactsTest(){
         if(app.contact().countContact() == 0){
             app.contact().createNewContract(new ContactData(
                     "John",
-                    "A.",
                     "Doe",
-                    "Johnny",
-                    "he",
-                    "Acme",
                     "123 Elm Street",
                     "555-5678",
                     "john.doe@example.com"
             ));
             app.contact().createNewContract(new ContactData(
                     "Jane",
-                    "A.",
                     "Doe",
-                    "JaneSun",
-                    "she",
-                    "Acme",
                     "123 Elm Street",
                     "555-5678",
                     "Jane.Doe@example.com"));
         } else if(app.contact().countContact() == 1){
             app.contact().createNewContract(new ContactData(
                     "Jane",
-                    "A.",
                     "Doe",
-                    "JaneSun",
-                    "she",
-                    "Acme",
                     "123 Elm Street",
                     "555-5678",
                     "Jane.Doe@example.com"));
@@ -49,6 +41,30 @@ public class RemoveContactTest extends TestBase{
         app.contact().removeAllContact();
         int contactAfterTest = app.contact().countContact();
         Assertions.assertEquals(0, contactAfterTest);
+    }
+
+    @Test()
+    @DisplayName("Удаление одного контакта")
+    public void removeOneContact(){
+        if (app.contact().countContact() == 0){
+            app.contact().createNewContract(new ContactData(
+                    "Jane",
+                    "Doe",
+                    "123 Elm Street",
+                    "555-5678",
+                    "Jane.Doe@example.com"));
+        }
+        var oldContacts = app.contact().getList();
+        Random rnd = new Random();
+        int index = new Random().nextInt(oldContacts.size());
+
+        app.contact().removeContact();
+        var newList = app.contact().getList();
+        var expectedList = new ArrayList<>(oldContacts);
+        expectedList.remove(index);
+
+        Assertions.assertEquals(newList, expectedList);
+
     }
 
 

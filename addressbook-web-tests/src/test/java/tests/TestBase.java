@@ -29,6 +29,15 @@ public class TestBase {
 
     }
 
+    public static String generateRandomName(String baseName) {
+        Random rnd = new Random();
+        StringBuilder result = new StringBuilder(baseName);
+        for (int i = 0; i < 3; i++) {
+            int randNum = rnd.nextInt(10); // число от 0 до 9
+            result.append(randNum);
+        }
+        return result.toString();
+    }
     public static String randomPhoneNumber(){
         Random rnd = new Random();
         int areaCodeNumber = rnd.nextInt(1000);
@@ -40,5 +49,6 @@ public class TestBase {
         String fullNumber = "8("+codeNumberStr+")-"+mainNumberStr;
         return fullNumber;
     }
+
 
 }
