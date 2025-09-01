@@ -1,5 +1,6 @@
 package tests;
 
+import coomon.CommonFunctions;
 import models.ContactData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -16,15 +17,15 @@ public class RemoveContactTest extends TestBase{
     public void removeContactsTest(){
         if(app.contact().countContact() == 0){
             app.contact().createNewContract(new ContactData(
-                    "John",
-                    "Doe",
+                    CommonFunctions.nameGenerator("male", "firstName"),
+                    CommonFunctions.nameGenerator("male", "lastName"),
                     "123 Elm Street",
                     "555-5678",
                     "john.doe@example.com"
             ));
             app.contact().createNewContract(new ContactData(
-                    "Jane",
-                    "Doe",
+                    CommonFunctions.nameGenerator("female", "firstName"),
+                    CommonFunctions.nameGenerator("female", "lastName"),
                     "123 Elm Street",
                     "555-5678",
                     "Jane.Doe@example.com"));

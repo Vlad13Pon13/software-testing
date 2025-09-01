@@ -1,7 +1,7 @@
 package tests;
 
+import coomon.CommonFunctions;
 import models.ContactData;
-import models.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,7 +17,7 @@ public class CreateContactTest extends TestBase {
     @ParameterizedTest
     @DisplayName("Добавление контактов")
     @MethodSource("providerContactData")
-    public void test(ContactData data){
+    public void test(ContactData data) {
         var oldContact = app.contact().getList();
         app.contact().createNewContract(data);
         var newContact = app.contact().getList();
@@ -33,40 +33,37 @@ public class CreateContactTest extends TestBase {
         data.setPhoto(newContact.getLast().photo);
         expectedList.add(data);
         expectedList.sort(compareById);
-        Assertions.assertEquals(newContact,expectedList);
+        Assertions.assertEquals(newContact, expectedList);
 
 
     }
 
 
     static Stream<Arguments> providerContactData() {
-       ContactData contactOne = new  ContactData(
-                        "John",
-                        "Doe",
-                        "123 Elm Street",
-                        randomPhoneNumber(),
-                        "john.doe@example.com"
-                );
-       contactOne.setPhoto(randomPhoto("src/test/resources/images"));
+        ContactData contactOne = new ContactData(
+                CommonFunctions.nameGenerator("male", "firstName"),
+                CommonFunctions.nameGenerator("male", "lastName"),
+                "123 Elm Street",
+                CommonFunctions.randomPhoneNumber(),
+                "john.doe@example.com"
+        );
+        contactOne.setPhoto(CommonFunctions.randomPhoto("src/test/resources/images"));
 
-       ContactData contactTwo = new ContactData(
-               "Jane",
-               "Doe",
-               "123 Elm Street",
-               randomPhoneNumber(),
-               "Jane.Doe@example.com"
+        ContactData contactTwo = new ContactData(
+                CommonFunctions.nameGenerator("female", "firstName"),
+                CommonFunctions.nameGenerator("female", "lastName"),
+                "123 Elm Street",
+                CommonFunctions.randomPhoneNumber(),
+                "Jane.Doe@example.com"
 
-       );
-       contactTwo.setPhoto(randomPhoto("src/test/resources/images"));
+        );
+        contactTwo.setPhoto(CommonFunctions.randomPhoto("src/test/resources/images"));
 
-       return Stream.of(
-               Arguments.of(contactOne),
-               Arguments.of(contactTwo));
+        return Stream.of(
+                Arguments.of(contactOne),
+                Arguments.of(contactTwo));
 
     }
-
-
-
 
 
 }

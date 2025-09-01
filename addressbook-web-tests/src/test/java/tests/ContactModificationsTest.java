@@ -1,5 +1,6 @@
 package tests;
 
+import coomon.CommonFunctions;
 import models.ContactData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -16,10 +17,10 @@ public class ContactModificationsTest extends TestBase {
     public void modifyContactTest() {
         if (app.contact().countContact() == 0) {
             app.contact().createNewContract(new ContactData(
-                    "John",
-                    "Doe",
+                    CommonFunctions.nameGenerator("male", "firstName"),
+                    CommonFunctions.nameGenerator("male", "lastName"),
                     "123 Elm Street",
-                    randomPhoneNumber(),
+                    CommonFunctions.randomPhoneNumber(),
                     "john.doe@example.com"
             ));
         }
@@ -29,10 +30,10 @@ public class ContactModificationsTest extends TestBase {
         int index = rnd.nextInt(oldContacts.size());
 
         ContactData modifyData = new ContactData(
-                generateRandomName("John"),
-                "Doe",
+                CommonFunctions.nameGenerator("male", "firstName"),
+                CommonFunctions.nameGenerator("male", "lastName"),
                 "123 Elm Street",
-                randomPhoneNumber(),
+                CommonFunctions.randomPhoneNumber(),
                 "john.doe@example.com");
 
         modifyData.setId(oldContacts.get(index).getId());
