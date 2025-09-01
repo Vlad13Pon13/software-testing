@@ -6,6 +6,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
 
 public class HelperBase {
@@ -37,6 +39,11 @@ public class HelperBase {
         Select select = new Select(dropdown);
         select.selectByValue(date);
 
+
+    }
+
+    protected void attach(By locator, String file) {
+        applicationManager.webDriver.findElement(locator).sendKeys(Paths.get(file).toAbsolutePath().toString());
 
     }
 

@@ -1,8 +1,11 @@
 package tests;
 
 import manager.ApplicationManager;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.Random;
 
 public class TestBase {
@@ -48,6 +51,17 @@ public class TestBase {
 
         String fullNumber = "8("+codeNumberStr+")-"+mainNumberStr;
         return fullNumber;
+    }
+
+    public static String randomPhoto(String path){
+        var file = new File(path).list();
+        var rnd = new Random();
+        Assertions.assertNotNull(file);
+        var index = rnd.nextInt(file.length);
+        return Paths.get(path, file[index]).toString();
+
+
+
     }
 
 

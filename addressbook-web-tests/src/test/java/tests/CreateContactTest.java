@@ -30,6 +30,7 @@ public class CreateContactTest extends TestBase {
         var expectedList = new ArrayList<>(oldContact);
         data.setId(newContact.getLast().id);
         data.setMobile(newContact.getLast().mobile);
+        data.setPhoto(newContact.getLast().photo);
         expectedList.add(data);
         expectedList.sort(compareById);
         Assertions.assertEquals(newContact,expectedList);
@@ -46,6 +47,7 @@ public class CreateContactTest extends TestBase {
                         randomPhoneNumber(),
                         "john.doe@example.com"
                 );
+       contactOne.setPhoto(randomPhoto("src/test/resources/images"));
 
        ContactData contactTwo = new ContactData(
                "Jane",
@@ -55,6 +57,7 @@ public class CreateContactTest extends TestBase {
                "Jane.Doe@example.com"
 
        );
+       contactTwo.setPhoto(randomPhoto("src/test/resources/images"));
 
        return Stream.of(
                Arguments.of(contactOne),

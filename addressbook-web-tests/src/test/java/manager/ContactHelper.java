@@ -35,6 +35,9 @@ public class ContactHelper extends HelperBase {
         type(By.name("middlename"), data.middleName);
         type(By.name("lastname"), data.lastName);
         type(By.name("nickname"), data.nickName);
+        if (data.photo != null && !data.photo.trim().isEmpty()) {
+            attach(By.name("photo"), data.photo);
+        }
         type(By.name("title"), data.title);
         type(By.name("company"), data.company);
         type(By.name("address"), data.address);

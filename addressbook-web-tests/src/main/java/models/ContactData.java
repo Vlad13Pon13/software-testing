@@ -14,14 +14,12 @@ public class ContactData {
     public String id;
     @NonNull
     public String firstName;
-
     public String middleName="";
     @NonNull
     public String lastName;
     public String nickName="";
-
+    public String photo;
     public String title="";
-
     public String company="";
     @NonNull
     public String address;
