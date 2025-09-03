@@ -1,14 +1,11 @@
 package models;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
-import java.util.Objects;
 
 @Data
 @RequiredArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
 public class ContactData {
     public String id;

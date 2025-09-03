@@ -4,6 +4,10 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
+import coomon.CommonFunctions;
+import models.ContactData;
 import models.GroupData;
 
 import java.io.File;
@@ -65,7 +69,40 @@ public class Generator {
     }
 
     private Object generateContacts() {
-        return null;
+        ArrayList<ContactData> list = new ArrayList<>();
+        ContactData contactOne = new ContactData(
+                CommonFunctions.nameGenerator("male", "firstName"),
+                CommonFunctions.nameGenerator("male", "lastName"),
+                "123 Elm Street",
+                CommonFunctions.randomPhoneNumber(),
+                "test@example.com"
+        );
+        contactOne.setPhoto(CommonFunctions.randomPhoto("src/test/resources/images"));
+
+        ContactData contactTwo = new ContactData(
+                CommonFunctions.nameGenerator("female", "firstName"),
+                CommonFunctions.nameGenerator("female", "lastName"),
+                "123 Elm Street",
+                CommonFunctions.randomPhoneNumber(),
+                "test@example.com"
+
+        );
+        contactTwo.setPhoto(CommonFunctions.randomPhoto("src/test/resources/images"));
+
+        ContactData contactThree = new ContactData(
+                CommonFunctions.nameGenerator("male", "firstName"),
+                CommonFunctions.nameGenerator("male", "lastName"),
+                "123 Elm Street",
+                CommonFunctions.randomPhoneNumber(),
+                "test@example.com"
+
+        );
+        contactThree.setPhoto(CommonFunctions.randomPhoto("src/test/resources/images"));
+        list.add(contactOne);
+        list.add(contactTwo);
+        list.add(contactThree);
+
+        return list;
     }
 
 
@@ -74,7 +111,15 @@ public class Generator {
             ObjectMapper mapper = new ObjectMapper();
             mapper.enable(SerializationFeature.INDENT_OUTPUT);
             mapper.writeValue(new File(output), data);
-        }else {
+        }if ("yaml".equals(format)){
+            var mapper = new YAMLMapper();
+            mapper.enable(SerializationFeature.INDENT_OUTPUT);
+            mapper.writeValue(new File(output),data);
+        }if ("xml".equals(format)){
+            var mapper = new XmlMapper();
+            mapper.enable(SerializationFeature.INDENT_OUTPUT);
+            mapper.writeValue(new File(output),data);
+        } else {
             throw new IllegalArgumentException("Неизвестный формат данных: " +format);
         }
     }
