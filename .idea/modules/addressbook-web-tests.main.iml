@@ -14,10 +14,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.projectlombok:lombok:1.18.38" level="project" />
     <orderEntry type="library" name="Gradle: com.beust:jcommander:1.82" level="project" />
-    <orderEntry type="library" name="Gradle: com.github.javafaker:javafaker:1.0.2" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.commons:commons-lang3:3.5" level="project" />
-    <orderEntry type="library" name="Gradle: org.yaml:snakeyaml:android:1.23" level="project" />
-    <orderEntry type="library" name="Gradle: com.github.mifmif:generex:1.0.2" level="project" />
-    <orderEntry type="library" name="Gradle: dk.brics.automaton:automaton:1.11-8" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.14.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.14.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.14.2" level="project" />
   </component>
 </module>
