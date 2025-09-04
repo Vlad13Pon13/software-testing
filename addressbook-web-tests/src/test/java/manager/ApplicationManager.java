@@ -6,17 +6,24 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.util.Properties;
+
 
 public class ApplicationManager {
     protected   WebDriver webDriver;
     private LoginHelper session;
     private GroupHelper group;
     private ContactHelper contact;
+    private Properties properties;
 
 
-    final String url = "http://localhost/addressbook/";
 
-    public void init(String browser) {
+
+    public void init(String browser, Properties properties) {
+        this.properties = properties;
+
+        String url = properties.getProperty("web.baseUrl");
+
         if (webDriver == null){
             if ("firefox".equals(browser)){
                 webDriver = new FirefoxDriver();
@@ -29,7 +36,7 @@ public class ApplicationManager {
             //Авторизация
             webDriver.get(url);
             webDriver.manage().window().fullscreen();
-            session().login("admin", "secret");
+            session().login(properties.getProperty("web.username"), properties.getProperty("web.password"));
         }
     }
 
