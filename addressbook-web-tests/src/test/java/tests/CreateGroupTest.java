@@ -56,15 +56,7 @@ public class CreateGroupTest extends TestBase {
 
     }
 
-    @ParameterizedTest
-    @MethodSource("negativeGroupCreation")
-    public void negativeCreateGroup(GroupData data) {
-        var oldGroups = app.group().getList();
-        app.group().createGroup(data);
-        var newGroups = app.group().getList();
-        Assertions.assertEquals(oldGroups, newGroups);
 
-    }
 
     @ParameterizedTest
     @DisplayName("Создание c провайдером, который берет данные из файла ")
@@ -88,6 +80,75 @@ public class CreateGroupTest extends TestBase {
 
 
     }
+
+    @ParameterizedTest
+    @DisplayName("Создание c провайдером, который берет данные из БД")
+    @MethodSource("providerJdbc")
+    public void canCreateGroupJdbc(GroupData groupData) {
+
+        List<GroupData> oldGroups = app.jdbcHelper().getGroupListJdbc();
+
+        app.group().createGroup(groupData);
+
+        List<GroupData> newGroups = app.jdbcHelper().getGroupListJdbc();
+        Comparator<GroupData> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+        };
+        newGroups.sort(compareById);
+
+        var maxId = newGroups.get(newGroups.size() - 1).id();
+        List<GroupData> expectedList = new ArrayList<>(oldGroups);
+        expectedList.add(groupData.withHId(maxId));
+        expectedList.sort(compareById);
+        Assertions.assertEquals(newGroups, expectedList);
+
+        //Сравниваем UI с БД после добавлением новой группы
+        var groupsUiListAfterTest = app.group().getList();//Получаем лист UI
+
+        List<GroupData> newGroupsForCompare = new ArrayList<>(); //Создаем новый лист и заполняем его пустыми header and footer
+        for (GroupData data : newGroups) {
+            GroupData groupWithEmptyFields = data.withHeader("").withFooter("");
+            newGroupsForCompare.add(groupWithEmptyFields);
+        }
+        // Сортируем списки
+        newGroupsForCompare.sort(compareById);
+        groupsUiListAfterTest.sort(compareById);
+        // Сравниваем
+        Assertions.assertEquals(newGroupsForCompare, groupsUiListAfterTest);
+
+
+
+
+
+
+
+    }
+
+
+    @ParameterizedTest
+    @MethodSource("negativeGroupCreation")
+    public void negativeCreateGroup(GroupData data) {
+        var oldGroups = app.group().getList();
+        app.group().createGroup(data);
+        var newGroups = app.group().getList();
+        Assertions.assertEquals(oldGroups, newGroups);
+
+    }
+
+
+
+    static List<GroupData> providerJdbc() {
+         return List.of(new GroupData()
+                .withName(CommonFunctions.randomString(10))
+                .withHeader(CommonFunctions.randomString(5))
+                .withFooter(CommonFunctions.randomString(2)));
+
+
+        }
+
+
+
+
 
 
 
