@@ -21,10 +21,9 @@ public class ContactHelper extends HelperBase {
     }
 
     public void openHomePage() {
-        if (!applicationManager.contact().applicationManager.isElementPresent(By.name("selected[]"))) {
             click(By.linkText("home"));
         }
-    }
+
 
     public void createNewContract(ContactData data) {
         openHomePage();
