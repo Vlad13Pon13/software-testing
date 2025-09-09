@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -38,7 +39,6 @@ public class RemoveContactTest extends TestBase{
                     "Jane.Doe@example.com"));
 
         }
-        int contactBeforeTest = app.contact().countContact();
         app.contact().removeAllContact();
         int contactAfterTest = app.contact().countContact();
         Assertions.assertEquals(0, contactAfterTest);
@@ -46,7 +46,7 @@ public class RemoveContactTest extends TestBase{
 
     @Test()
     @DisplayName("Удаление одного контакта")
-    public void removeOneContact(){
+    public void removeOneContact() throws SQLException {
         if (app.contact().countContact() == 0){
             app.contact().createNewContract(new ContactData(
                     "Jane",
@@ -55,12 +55,12 @@ public class RemoveContactTest extends TestBase{
                     "555-5678",
                     "Jane.Doe@example.com"));
         }
-        var oldContacts = app.contact().getList();
+        var oldContacts = app.jdbcHelper().getContactListJdbc();
         Random rnd = new Random();
         int index = new Random().nextInt(oldContacts.size());
 
         app.contact().removeContact();
-        var newList = app.contact().getList();
+        var newList = app.jdbcHelper().getContactListJdbc();
         var expectedList = new ArrayList<>(oldContacts);
         expectedList.remove(index);
 

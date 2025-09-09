@@ -11,6 +11,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -21,10 +22,10 @@ public class CreateContactTest extends TestBase {
     @ParameterizedTest
     @DisplayName("Добавление контактов")
     @MethodSource("providerContactData")
-    public void testContact(ContactData data) {
-        var oldContact = app.contact().getList();
+    public void testContact(ContactData data) throws SQLException {
+        var oldContact = app.jdbcHelper().getContactListJdbc();
         app.contact().createNewContract(data);
-        var newContact = app.contact().getList();
+        var newContact =  app.jdbcHelper().getContactListJdbc();
 
         Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.getId()), Integer.parseInt(o2.getId()));
@@ -40,6 +41,7 @@ public class CreateContactTest extends TestBase {
         Assertions.assertEquals(newContact, expectedList);
 
     }
+
 
     @ParameterizedTest
     @DisplayName("Добавление контактов через провайдера файлов")

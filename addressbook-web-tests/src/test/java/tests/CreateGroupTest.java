@@ -83,8 +83,8 @@ public class CreateGroupTest extends TestBase {
 
     @ParameterizedTest
     @DisplayName("Создание c провайдером, который берет данные из БД")
-    @MethodSource("providerJdbc")
-    public void canCreateGroupJdbc(GroupData groupData) {
+    @MethodSource("providerBD")
+    public void canCreateGroupHbm(GroupData groupData) {
 
         List<GroupData> oldGroups = app.hmb().getGroupListHbm();
 
@@ -137,12 +137,11 @@ public class CreateGroupTest extends TestBase {
 
 
 
-    static List<GroupData> providerJdbc() {
+    static List<GroupData> providerBD() {
          return List.of(new GroupData()
                 .withName(CommonFunctions.randomString(10))
                 .withHeader(CommonFunctions.randomString(5))
                 .withFooter(CommonFunctions.randomString(2)));
-
 
         }
 

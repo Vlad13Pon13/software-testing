@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
@@ -14,7 +15,7 @@ public class ContactModificationsTest extends TestBase {
 
     @Test
     @DisplayName("Изменение существующего контакта")
-    public void modifyContactTest() {
+    public void modifyContactTest() throws SQLException {
         if (app.contact().countContact() == 0) {
             app.contact().createNewContract(new ContactData(
                     CommonFunctions.nameGenerator("male", "firstName"),
@@ -25,7 +26,7 @@ public class ContactModificationsTest extends TestBase {
             ));
         }
 
-        var oldContacts = app.contact().getList();
+        var oldContacts = app.jdbcHelper().getContactListJdbc();
         Random rnd = new Random();
         int index = rnd.nextInt(oldContacts.size());
 
@@ -40,7 +41,7 @@ public class ContactModificationsTest extends TestBase {
         modifyData.setMobile(oldContacts.get(index).getMobile());
         app.contact().modifyContact(oldContacts.get(index),modifyData);
 
-        var newContacts = app.contact().getList();
+        var newContacts = app.jdbcHelper().getContactListJdbc();
         var expectedList = new ArrayList<>(oldContacts);
         expectedList.set(index, modifyData);
         Comparator<ContactData> compareById = (o1, o2) -> {

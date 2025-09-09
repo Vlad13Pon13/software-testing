@@ -85,5 +85,41 @@ public class RemoveGroupsTest extends TestBase {
 
     }
 
+    @Test
+    @DisplayName("Удаление одной группы из списка(контроль с помощью HBM)")
+    public void removeOneGroupHbmControl(){
+        if (app.hmb().getGroupCount()==0){
+            app.hmb().createGroupHbm(new GroupData("", "group_name", "group_header", "group_footer"));
+        }
+        List<GroupData> oldGroups = app.hmb().getGroupListHbm();
+
+        Random rnd = new Random();
+        int index = rnd.nextInt(oldGroups.size());
+        app.group().removeOneGroup(oldGroups.get(index));
+
+        List<GroupData> newGroups = app.hmb().getGroupListHbm();
+
+        List<GroupData> expectedList = new ArrayList<>(oldGroups);
+        expectedList.remove(index);
+        Assertions.assertEquals(newGroups, expectedList);
+
+        //Проверяем UI и БД после теста
+        var groupsUiListAfterTest = app.group().getList();//Получаем лист UI
+        List<GroupData> newGroupsForCompare = new ArrayList<>(); //Создаем новый лист из запроса БД и заполняем его пустыми header and footer
+        for (GroupData data : newGroups) {
+            GroupData groupWithEmptyFields = data.withHeader("").withFooter("");
+            newGroupsForCompare.add(groupWithEmptyFields);
+        }
+        Comparator<GroupData> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+        };
+        newGroupsForCompare.sort(compareById);
+        groupsUiListAfterTest.sort(compareById);
+
+        // Сравниваем
+        Assertions.assertEquals(newGroupsForCompare, groupsUiListAfterTest);
+
+    }
+
 
 }
