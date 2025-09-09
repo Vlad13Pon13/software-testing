@@ -1,5 +1,6 @@
 package manager;
 
+import org.hibernate.Hibernate;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -16,6 +17,7 @@ public class ApplicationManager {
     private ContactHelper contact;
     private JdbcHelper jdbcHelper;
     private Properties properties;
+    private HibernateHelper hbm;
 
 
 
@@ -78,6 +80,13 @@ public class ApplicationManager {
             jdbcHelper = new JdbcHelper(this);
         }
         return jdbcHelper;
+    }
+
+    public HibernateHelper hmb(){
+        if(hbm == null){
+            hbm = new HibernateHelper(this);
+        }
+        return  hbm;
     }
 
 }

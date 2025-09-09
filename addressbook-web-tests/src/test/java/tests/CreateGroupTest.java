@@ -86,11 +86,11 @@ public class CreateGroupTest extends TestBase {
     @MethodSource("providerJdbc")
     public void canCreateGroupJdbc(GroupData groupData) {
 
-        List<GroupData> oldGroups = app.jdbcHelper().getGroupListJdbc();
+        List<GroupData> oldGroups = app.hmb().getGroupListHbm();
 
         app.group().createGroup(groupData);
 
-        List<GroupData> newGroups = app.jdbcHelper().getGroupListJdbc();
+        List<GroupData> newGroups = app.hmb().getGroupListHbm();
         Comparator<GroupData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
