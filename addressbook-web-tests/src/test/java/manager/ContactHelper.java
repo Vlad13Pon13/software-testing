@@ -21,7 +21,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void openHomePage() {
-        if (!applicationManager.contact().applicationManager.isElementPresent(By.xpath("//input[@value='Send e-Mail']"))) {
+        if (!applicationManager.contact().applicationManager.isElementPresent(By.name("selected[]"))) {
             click(By.linkText("home"));
         }
     }
