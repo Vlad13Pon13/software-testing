@@ -82,7 +82,7 @@ public class CreateGroupTest extends TestBase {
     }
 
     @ParameterizedTest
-    @DisplayName("Создание c провайдером, который берет данные из БД")
+    @DisplayName("Создание c провайдером, который берет данные из БД (JDBC)")
     @MethodSource("providerBD")
     public void canCreateGroupHbm(GroupData groupData) {
 

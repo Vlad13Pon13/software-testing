@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -79,8 +80,8 @@ public class GroupModificationsTests extends TestBase{
 
     @Test()
     @DisplayName("Изменение группы через JDBC помощник")
-    public void modifyGroupJdbcControl(){
-        if (app.group().getGroupCount()==0){
+    public void modifyGroupJdbcControl() throws SQLException {
+        if (app.jdbcHelper().getGroupCountJdbc()==0){
             app.group().createGroup(new GroupData().withName("forModifyTest"));
         }
 

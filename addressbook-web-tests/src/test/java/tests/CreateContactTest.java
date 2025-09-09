@@ -22,10 +22,33 @@ public class CreateContactTest extends TestBase {
     @ParameterizedTest
     @DisplayName("Добавление контактов")
     @MethodSource("providerContactData")
-    public void testContact(ContactData data) throws SQLException {
+    public void testContactJdbc(ContactData data) throws SQLException {
         var oldContact = app.jdbcHelper().getContactListJdbc();
         app.contact().createNewContract(data);
         var newContact =  app.jdbcHelper().getContactListJdbc();
+
+        Comparator<ContactData> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.getId()), Integer.parseInt(o2.getId()));
+        };
+        newContact.sort(compareById);
+
+        var expectedList = new ArrayList<>(oldContact);
+        data.setId(newContact.getLast().id);
+        data.setMobile(newContact.getLast().mobile);
+        data.setPhoto(newContact.getLast().photo);
+        expectedList.add(data);
+        expectedList.sort(compareById);
+        Assertions.assertEquals(newContact, expectedList);
+
+    }
+
+    @ParameterizedTest
+    @DisplayName("Добавление контактов")
+    @MethodSource("providerContactData")
+    public void testContactHbm(ContactData data){
+        var oldContact = app.hmb().getContactListHbm();
+        app.contact().createNewContract(data);
+        var newContact = app.hmb().getContactListHbm();
 
         Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.getId()), Integer.parseInt(o2.getId()));

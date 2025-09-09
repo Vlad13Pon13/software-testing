@@ -35,6 +35,20 @@ public class JdbcHelper  extends HelperBase{
        return groups;
    }
 
+    public Long getGroupCountJdbc() throws SQLException {
+        try(var connection = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
+            var statement = connection.createStatement();
+            var result = statement.executeQuery("select count(group_id) as count from group_list"))
+        {
+            if (result.next()) {
+                return result.getLong("count");
+            } else {
+                return 0L;
+            }
+        }
+
+    }
+
    public ArrayList<ContactData> getContactListJdbc() throws SQLException {
         var contacts = new ArrayList<ContactData>();
         try(var connection = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
@@ -58,5 +72,21 @@ public class JdbcHelper  extends HelperBase{
         }
         return contacts;
    }
+
+   public Long getContactCountJdbc() throws SQLException {
+       try(var connection = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
+           var statement = connection.createStatement();
+           var result = statement.executeQuery("select count(id) as count from addressbook"))
+       {
+           if (result.next()) {
+               return result.getLong("count");
+           } else {
+               return 0L;
+           }
+       }
+
+   }
+
+
 
 }

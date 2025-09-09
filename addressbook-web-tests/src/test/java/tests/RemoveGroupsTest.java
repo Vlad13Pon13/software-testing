@@ -1,11 +1,11 @@
 package tests;
 
-import models.ContactData;
 import models.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -51,8 +51,8 @@ public class RemoveGroupsTest extends TestBase {
 
     @Test
     @DisplayName("Удаление одной группы из списка(контроль с помощью JDBC)")
-    public void removeOneGroupJdbcControl(){
-        if (app.group().getGroupCount()==0){
+    public void removeOneGroupJdbcControl() throws SQLException {
+        if (app.jdbcHelper().getGroupCountJdbc()== 0){
             app.group().createGroup(new GroupData().withName("forDeleteFirstGroup"));
         }
         List<GroupData> oldGroups = app.jdbcHelper().getGroupListJdbc();
