@@ -155,10 +155,9 @@ public class CreateGroupTest extends TestBase {
 
     static Stream<Arguments> providerGroupData() {
         return Stream.of(
-                Arguments.of(new GroupData().withHeader("testHeader")),
-                Arguments.of(new GroupData().withName("testName")),
-                Arguments.of(new GroupData().withFooter("testFooter")),
-                Arguments.of(new GroupData())
+                Arguments.of(new GroupData().withHeader("testHeader").withName(CommonFunctions.randomString(3))),
+                Arguments.of(new GroupData().withName("testName").withName(CommonFunctions.randomString(3))),
+                Arguments.of(new GroupData().withFooter("testFooter").withName(CommonFunctions.randomString(3)))
         );
     }
 

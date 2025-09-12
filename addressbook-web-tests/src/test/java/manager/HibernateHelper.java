@@ -122,4 +122,11 @@ public class HibernateHelper extends HelperBase {
         }
         return new ContactRecord(Integer.parseInt(id), data.firstName, data.lastName, data.address, data.mobile, data.mail);
     }
+
+    public List<ContactData> getContactsInGroup(GroupData group) {
+        return sessionFactory.fromSession(session -> {
+           return convertListContact(session.get(GroupRecord.class, group.id()).contacts);
+
+        });
+    }
 }
