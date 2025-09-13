@@ -12,7 +12,7 @@ public class PrintCalculateGeometry {
     }
 
     public static void printSquarePerimeter(Square square){
-        String text = String.format("Площадь квадрата со стороной %.1f = %.1f ", square.getSide(), square.perimeter());
+        String text = String.format("Периметр квадрата со стороной %.1f = %.1f ", square.getSide(), square.perimeter());
         System.out.println(text);
     }
 

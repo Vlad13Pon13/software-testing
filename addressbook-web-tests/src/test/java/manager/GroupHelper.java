@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GroupHelper extends HelperBase{
 
@@ -87,12 +88,9 @@ public class GroupHelper extends HelperBase{
 
 
     private void selectAllGroup(){
-        List<WebElement> checkboxes = applicationManager.webDriver.findElements(By.name("selected[]"));
-        for (WebElement checkbox : checkboxes){
-            if (!checkbox.isSelected()){
-                checkbox.click();
-            }
-        }
+        applicationManager.webDriver
+                .findElements(By.name("selected[]"))
+                .forEach(WebElement::click);
     }
 
     private void submitGroupCreation() {
@@ -114,15 +112,16 @@ public class GroupHelper extends HelperBase{
 
     public List<GroupData> getList() {
         openGroupsPage();
-        ArrayList<GroupData> groups = new ArrayList<>();
         List<WebElement> spans = applicationManager.webDriver.findElements(By.cssSelector("span.group"));
-        for(WebElement span : spans) {
-            String name = span.getText();
-            WebElement checkbox =span.findElement(By.name("selected[]"));
-            String id = checkbox.getAttribute("value");
-            groups.add(new GroupData().withHId(id).withName(name));
-        }
-        return groups;
+        return spans.stream()
+                .map(span ->{
+                    String name = span.getText();
+                    WebElement checkbox =span.findElement(By.name("selected[]"));
+                    String id = checkbox.getAttribute("value");
+                    return new GroupData().withHId(id).withName(name);
+                })
+                .collect(Collectors.toList());
+
 
 
     }

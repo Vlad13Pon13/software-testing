@@ -5,27 +5,22 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CommonFunctions {
     public static String randomString(int n){
         Random rnd = new Random();
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i< n; i++){
-            result.append((char) ('a' + rnd.nextInt(26)));
-        }
+        Supplier<Integer> randomNumbers = ()-> rnd.nextInt(26);
+        var result = Stream.generate(randomNumbers)
+                .limit(n)
+                .map(i-> 'a' + i)
+                .map(Character::toString)
+                .collect(Collectors.joining());
 
-        return result.toString();
+       return result;
 
-    }
-
-    public static String generateRandomName(String baseName) {
-        Random rnd = new Random();
-        StringBuilder result = new StringBuilder(baseName);
-        for (int i = 0; i < 3; i++) {
-            int randNum = rnd.nextInt(10); // число от 0 до 9
-            result.append(randNum);
-        }
-        return result.toString();
     }
 
     public static String randomPhoneNumber(){

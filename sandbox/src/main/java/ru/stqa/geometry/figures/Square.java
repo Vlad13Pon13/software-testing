@@ -11,6 +11,7 @@ public class Square {
         if (o == null || getClass() != o.getClass()) return false;
         Square square = (Square) o;
         return Double.compare(side, square.side) == 0;
+
     }
 
     @Override

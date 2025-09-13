@@ -13,6 +13,9 @@ import models.GroupData;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static coomon.CommonFunctions.randomString;
 
@@ -56,16 +59,16 @@ public class Generator {
         }
     }
 
-    private Object generateGroups() {
-        ArrayList<GroupData> list = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            list.add(new GroupData().
-                    withName(randomString(i * 10)).
-                    withHeader(randomString(i * 10)).
-                    withFooter(randomString(i * 10)));
+    private Object generateData(Supplier<Object> supplier){
+      return   Stream.generate(supplier).limit(count).collect(Collectors.toList());
+    }
 
-        }
-        return  list;
+    private Object generateGroups() {
+        return generateData(()->new GroupData().
+                withName(randomString(10)).
+                withHeader(randomString(10)).
+                withFooter(randomString(10)));
+
     }
 
     private Object generateContacts() {

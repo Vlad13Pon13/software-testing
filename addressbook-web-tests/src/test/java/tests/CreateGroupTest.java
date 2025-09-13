@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 
@@ -83,7 +84,7 @@ public class CreateGroupTest extends TestBase {
 
     @ParameterizedTest
     @DisplayName("Создание c провайдером, который берет данные из БД (JDBC)")
-    @MethodSource("providerBD")
+    @MethodSource("providerSupplier")
     public void canCreateGroupHbm(GroupData groupData) {
 
         List<GroupData> oldGroups = app.hmb().getGroupListHbm();
@@ -137,11 +138,12 @@ public class CreateGroupTest extends TestBase {
 
 
 
-    static List<GroupData> providerBD() {
-         return List.of(new GroupData()
+    static Stream<GroupData> providerSupplier() {
+        Supplier<GroupData> group = () -> new GroupData()
                 .withName(CommonFunctions.randomString(10))
                 .withHeader(CommonFunctions.randomString(5))
-                .withFooter(CommonFunctions.randomString(2)));
+                .withFooter(CommonFunctions.randomString(2));
+         return Stream.generate(group).limit(3);
 
         }
 
