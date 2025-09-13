@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -92,16 +93,13 @@ public class CreateGroupTest extends TestBase {
         app.group().createGroup(groupData);
 
         List<GroupData> newGroups = app.hmb().getGroupListHbm();
-        Comparator<GroupData> compareById = (o1, o2) -> {
-            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
-        };
-        newGroups.sort(compareById);
 
-        var maxId = newGroups.get(newGroups.size() - 1).id();
+        var extraGroups = newGroups.stream().filter(g -> !oldGroups.contains(g)).toList();
+        var newId = extraGroups.get(0).id();
         List<GroupData> expectedList = new ArrayList<>(oldGroups);
-        expectedList.add(groupData.withHId(maxId));
-        expectedList.sort(compareById);
-        Assertions.assertEquals(newGroups, expectedList);
+        expectedList.add(groupData.withHId(newId));
+
+        Assertions.assertEquals(Set.copyOf(newGroups) ,Set.copyOf(expectedList) );
 
         //Сравниваем UI с БД после добавлением новой группы
         var groupsUiListAfterTest = app.group().getList();//Получаем лист UI
@@ -111,11 +109,9 @@ public class CreateGroupTest extends TestBase {
             GroupData groupWithEmptyFields = data.withHeader("").withFooter("");
             newGroupsForCompare.add(groupWithEmptyFields);
         }
-        // Сортируем списки
-        newGroupsForCompare.sort(compareById);
-        groupsUiListAfterTest.sort(compareById);
+
         // Сравниваем
-        Assertions.assertEquals(newGroupsForCompare, groupsUiListAfterTest);
+        Assertions.assertEquals(Set.copyOf(newGroupsForCompare) ,Set.copyOf(groupsUiListAfterTest));
 
 
 

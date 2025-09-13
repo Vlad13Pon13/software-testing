@@ -4,7 +4,9 @@ package ru.stqa.collections;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CollectionTests {
 
@@ -24,8 +26,8 @@ public class CollectionTests {
 
     @Test
     void listTest(){
-        ArrayList list = new ArrayList<>(List.of("a","b","c"));
-        Assertions.assertEquals(3, list.size());
+        ArrayList list = new ArrayList<>(List.of("a","b","c", "a"));
+        Assertions.assertEquals(4, list.size());
 
         //list.add("a");
         //list.add("b");
@@ -35,5 +37,14 @@ public class CollectionTests {
         list.set(0, "d");
         Assertions.assertEquals("d", list.get(0));
 
+    }
+
+    @Test
+    void setTests(){
+        var set = new HashSet<>(List.of("a", "b", "c", "a"));
+        Assertions.assertEquals(set.size(), 3);
+
+        set.add("d");
+        Assertions.assertEquals(set.size(), 4);
     }
 }

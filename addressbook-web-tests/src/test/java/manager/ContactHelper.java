@@ -209,4 +209,10 @@ public class ContactHelper extends HelperBase {
     private void selectGroupWithContacts(GroupData group) {
         new Select( applicationManager.webDriver.findElement(By.name("group"))).selectByValue(group.id());
     }
+
+    public String getPhones(ContactData contact) {
+        openHomePage();
+        return applicationManager.webDriver.findElement(By.xpath(
+                String.format("//input[@id='%s']/../../td[6]",contact.getId()))).getText();
+    }
 }

@@ -95,6 +95,8 @@ public class HibernateHelper extends HelperBase {
         contactData.setLastName(record.lastname);
         contactData.setAddress(record.address);
         contactData.setMobile(record.mobile);
+        contactData.setWork(record.work);
+        contactData.setHome(record.home);
         contactData.setMail(record.email);
 
         return contactData;

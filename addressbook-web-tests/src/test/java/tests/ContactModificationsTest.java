@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
+import java.util.Set;
 
 public class ContactModificationsTest extends TestBase {
 
@@ -44,13 +45,8 @@ public class ContactModificationsTest extends TestBase {
         var newContacts = app.jdbcHelper().getContactListJdbc();
         var expectedList = new ArrayList<>(oldContacts);
         expectedList.set(index, modifyData);
-        Comparator<ContactData> compareById = (o1, o2) -> {
-            return Integer.compare(Integer.parseInt(o1.getId()), Integer.parseInt(o2.getId()));
-        };
-        newContacts.sort(compareById);
-        expectedList.sort(compareById);
 
-        Assertions.assertEquals(newContacts, expectedList);
+        Assertions.assertEquals(Set.copyOf(newContacts) ,Set.copyOf(expectedList));
 
     }
 
