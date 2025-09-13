@@ -98,6 +98,8 @@ public class HibernateHelper extends HelperBase {
         contactData.setWork(record.work);
         contactData.setHome(record.home);
         contactData.setMail(record.email);
+        contactData.setMailTwo(record.email2);
+        contactData.setMailThree(record.email3);
 
         return contactData;
     }

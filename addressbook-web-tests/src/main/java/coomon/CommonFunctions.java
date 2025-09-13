@@ -35,6 +35,16 @@ public class CommonFunctions {
         return fullNumber;
     }
 
+    public static String randomEmail() {
+        Random rnd = new Random();
+
+        String[] domains = {"example.com", "mail.com", "test.org", "email.net"};
+        String domain = domains[rnd.nextInt(domains.length)];
+        String localPart = randomString(5);
+
+        return localPart + "@" + domain;
+    }
+
     public static String randomPhoto(String path){
         var file = new File(path).list();
         var rnd = new Random();
@@ -43,12 +53,28 @@ public class CommonFunctions {
 
     }
 
+    public static String randomAddress(){
+        Random rnd = new Random();
+        String[] streets = {
+                "Центральная", "Молодёжная","Школьная","Лесная","Садовая","Новая","Советская","Мира"
+        };
+        String[] cities = {
+                "Москва", "Краснодар", "Пермь"
+        };
+        String city = cities[rnd.nextInt(cities.length)];
+        String street = streets[rnd.nextInt(streets.length)];
+        int house = rnd.nextInt(200) + 1;
+        String fullAddress = String.format("Город %s, улица %s, д. %d",city,street,house);
+
+        return fullAddress;
+    }
+
     public static String nameGenerator(String gender, String personalData){
 
         /**
          * Генерирует часть персональных данных в зависимости от пола и типа данных.
          * @param gender Пол человека ("male" или "female").
-         * @param personalData Тип данных для генерации ("name" или "surname").
+         * @param personalData Тип данных для генерации ("name" или "lastname").
          * @return Сгенерированное имя или фамилия в зависимости от параметров.
          */
 

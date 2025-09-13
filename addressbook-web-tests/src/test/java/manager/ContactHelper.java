@@ -7,7 +7,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ContactHelper extends HelperBase {
 
@@ -214,5 +216,41 @@ public class ContactHelper extends HelperBase {
         openHomePage();
         return applicationManager.webDriver.findElement(By.xpath(
                 String.format("//input[@id='%s']/../../td[6]",contact.getId()))).getText();
+    }
+
+    public Map<String,String> getPhones() {
+        var result = new HashMap<String,String>();
+        var rows = applicationManager.webDriver.findElements(By.name("entry"));
+        for (var row: rows){
+            var idContact = row.findElement(By.tagName("input")).getAttribute("id");
+            var phones = row.findElements(By.tagName("td")).get(5).getText();
+            result.put(idContact, phones);
+
+        }
+        return result;
+    }
+
+    public Map<String,String> getEmails() {
+        var result = new HashMap<String,String>();
+        var rows = applicationManager.webDriver.findElements(By.name("entry"));
+        for (var row: rows){
+            var idContact = row.findElement(By.tagName("input")).getAttribute("id");
+            var mails = row.findElements(By.tagName("td")).get(4).getText();
+            result.put(idContact, mails);
+
+        }
+        return result;
+    }
+
+    public Map<String,String> getAddress() {
+        var result = new HashMap<String,String>();
+        var rows = applicationManager.webDriver.findElements(By.name("entry"));
+        for (var row: rows){
+            var idContact = row.findElement(By.tagName("input")).getAttribute("id");
+            var address = row.findElements(By.tagName("td")).get(3).getText();
+            result.put(idContact, address);
+
+        }
+        return result;
     }
 }
