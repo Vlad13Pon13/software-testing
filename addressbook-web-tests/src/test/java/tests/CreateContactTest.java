@@ -3,8 +3,10 @@ package tests;
 import com.fasterxml.jackson.core.type.TypeReference;
 import coomon.CommonFunctions;
 import models.ContactData;
+import models.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -15,6 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Stream;
 
 public class CreateContactTest extends TestBase {
@@ -24,7 +27,7 @@ public class CreateContactTest extends TestBase {
     @MethodSource("providerContactData")
     public void testContactJdbc(ContactData data) throws SQLException {
         var oldContact = app.jdbcHelper().getContactListJdbc();
-        app.contact().createNewContract(data);
+        app.contact().createNewContact(data);
         var newContact =  app.jdbcHelper().getContactListJdbc();
 
         Comparator<ContactData> compareById = (o1, o2) -> {
@@ -47,7 +50,7 @@ public class CreateContactTest extends TestBase {
     @MethodSource("providerContactData")
     public void testContactHbm(ContactData data){
         var oldContact = app.hmb().getContactListHbm();
-        app.contact().createNewContract(data);
+        app.contact().createNewContact(data);
         var newContact = app.hmb().getContactListHbm();
 
         Comparator<ContactData> compareById = (o1, o2) -> {
@@ -71,7 +74,7 @@ public class CreateContactTest extends TestBase {
     @MethodSource("readFileProvider")
     public void testContactProviderFiles(ContactData data) {
         var oldContact = app.contact().getList();
-        app.contact().createNewContract(data);
+        app.contact().createNewContact(data);
         var newContact = app.contact().getList();
 
         Comparator<ContactData> compareById = (o1, o2) -> {
@@ -89,6 +92,77 @@ public class CreateContactTest extends TestBase {
 
 
     }
+
+    @ParameterizedTest
+    @DisplayName("Добавление контактов")
+    @MethodSource("providerContactData")
+    public void createContactInGroup(ContactData contact){
+        if (app.hmb().getGroupCount()==0){
+            app.hmb().createGroupHbm(new GroupData("", "group_name", "group_header", "group_footer"));
+        }
+        var group =app.hmb().getGroupListHbm().getFirst();
+
+        var oldRelated = app.hmb().getContactsInGroup(group);
+        app.contact().createContactInGroup(contact, group);
+        var newRelated = app.hmb().getContactsInGroup(group);
+
+        Comparator<ContactData> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.getId()), Integer.parseInt(o2.getId()));
+        };
+        newRelated.sort(compareById);
+        var expectedList = new ArrayList<>(oldRelated);
+        contact.setId(newRelated.getLast().id);
+        contact.setMobile(newRelated.getLast().mobile);
+        contact.setPhoto(newRelated.getLast().photo);
+        expectedList.add(contact);
+        expectedList.sort(compareById);
+        Assertions.assertEquals(newRelated, expectedList);
+
+
+    }
+
+    @Test
+    public void createContactInGroupWithAdd() throws SQLException {
+        if (app.jdbcHelper().getCountContactWithoutGroup() == 0){
+            app.contact().createNewContact(new ContactData(
+                    CommonFunctions.nameGenerator("male", "firstName"),
+                    CommonFunctions.nameGenerator("male", "lastName"),
+                    "123 Elm Street",
+                    CommonFunctions.randomPhoneNumber(),
+                    "john.doe@example.com"
+                    ));
+
+        }
+        if (app.jdbcHelper().getGroupCountJdbc() == 0){
+            app.group().createGroup(new GroupData().withName("forAddContactInGroup"));
+        }
+        var groups = app.jdbcHelper().getGroupListJdbc();
+        var contacts = app.jdbcHelper().findContactWithoutGroup();
+        Random rnd = new Random();
+
+        var group = groups.get(rnd.nextInt(groups.size()));//Выбираем случайную группу из списка всех групп
+        var contact = contacts.get(rnd.nextInt(contacts.size()));//Выбираем случайный контакт из списка контактов без группы
+
+        var oldRelated = app.jdbcHelper().getContactsInGroups(group);
+        app.contact().addContactInGroup(contact, group);
+        var newRelated = app.jdbcHelper().getContactsInGroups(group);
+
+        Comparator<ContactData> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.getId()), Integer.parseInt(o2.getId()));
+        };
+        newRelated.sort(compareById);
+
+        var expectedList = new ArrayList<>(oldRelated);
+        contact.setId(newRelated.getLast().id);
+        contact.setMobile(newRelated.getLast().mobile);
+        contact.setPhoto(newRelated.getLast().photo);
+        expectedList.add(contact);
+        expectedList.sort(compareById);
+        Assertions.assertEquals(newRelated, expectedList);
+    }
+
+
+
 
     static List<ContactData> readFileProvider() throws IOException {
         var result = new ArrayList<ContactData>();

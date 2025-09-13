@@ -2,14 +2,10 @@ package manager;
 
 import models.ContactData;
 import models.GroupData;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.Select;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,17 +17,32 @@ public class ContactHelper extends HelperBase {
     }
 
     public void openHomePage() {
+         {
             click(By.linkText("home"));
         }
+    }
 
-
-    public void createNewContract(ContactData data) {
+    public void createNewContact(ContactData data) {
         openHomePage();
         initContactCreation();
         fillContractForm(data);
         submitContactCreation();
         returnHomePage();
 
+    }
+
+    public void createContactInGroup(ContactData contact, GroupData group) {
+        openHomePage();
+        initContactCreation();
+        fillContractForm(contact);
+        selectGroup(group);
+        submitContactCreation();
+        returnHomePage();
+
+    }
+
+    private void selectGroup(GroupData group) {
+        new Select( applicationManager.webDriver.findElement(By.name("new_group"))).selectByValue(group.id());
     }
 
     private void fillContractForm(ContactData data) {
@@ -157,4 +168,45 @@ public class ContactHelper extends HelperBase {
         click(By.name("selected[]"));
     }
 
+    public void addContactInGroup(ContactData contact, GroupData group) {
+        openHomePage();
+        selectContactForAdd(contact);
+        addGroup(group);
+        returnHomePage();
+    }
+
+    private void addGroup(GroupData group) {
+        new Select( applicationManager.webDriver.findElement(By.name("to_group"))).selectByValue(group.id());
+        click(By.name("add"));
+    }
+
+    private void selectContactForAdd(ContactData contact) {
+        click(By.cssSelector(String.format("input[value='%s']", contact.getId())));
+    }
+
+    public void removeContactInGroup(GroupData group, ContactData contact) {
+        openHomePage();
+        selectGroupWithContacts(group);
+        selectContactInGroup(contact);
+        removeOneContactInGroup();
+        returnGroupPage(group);
+    }
+
+    private void selectContactInGroup(ContactData contact) {
+        click(By.xpath(String.format("//input[@type='checkbox' and @value='%s']",contact.getId())));
+    }
+
+    private void returnGroupPage(GroupData group) {
+        click(By.xpath(String.format("//a[@href='./?group=%s']",group.id())));
+
+    }
+
+    private void removeOneContactInGroup() {
+        click(By.name("remove"));
+    }
+
+
+    private void selectGroupWithContacts(GroupData group) {
+        new Select( applicationManager.webDriver.findElement(By.name("group"))).selectByValue(group.id());
+    }
 }

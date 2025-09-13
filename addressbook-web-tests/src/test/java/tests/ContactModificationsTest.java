@@ -17,7 +17,7 @@ public class ContactModificationsTest extends TestBase {
     @DisplayName("Изменение существующего контакта c JDBC")
     public void modifyContactTestJdbc() throws SQLException {
         if (app.jdbcHelper().getContactCountJdbc() == 0) {
-            app.contact().createNewContract(new ContactData(
+            app.contact().createNewContact(new ContactData(
                     CommonFunctions.nameGenerator("male", "firstName"),
                     CommonFunctions.nameGenerator("male", "lastName"),
                     "123 Elm Street",
