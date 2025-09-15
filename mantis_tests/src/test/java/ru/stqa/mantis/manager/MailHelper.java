@@ -1,0 +1,48 @@
+package ru.stqa.mantis.manager;
+
+import jakarta.mail.*;
+import model.MailMessage;
+
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
+
+public class MailHelper extends HelperBase {
+    public MailHelper(ApplicationManager applicationManager) {
+        super(applicationManager);
+    }
+
+    public List<MailMessage> receive(String username, String password) {
+
+        try {
+            var session = Session.getInstance(new Properties());
+            Store store = session.getStore("pop3");
+            try {
+                store.connect("localhost",username, password);
+            } catch (MessagingException e) {
+                throw new RuntimeException(e);
+            }
+            var inbox = store.getFolder("INBOX");
+            inbox.open(Folder.READ_ONLY);
+            var messages = inbox.getMessages();
+
+            var result = Arrays.stream(messages).map(m -> {
+                try {
+                    return new MailMessage().withFrom(m.getFrom()[0].toString())
+                            .withContent((String) m.getContent());
+                } catch (MessagingException | IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }).toList();
+            inbox.close();
+            store.close();
+            return result;
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+}
