@@ -10,4 +10,6 @@ public class JamesTest extends TestBase{
         app.jamesCli().addUser(
                 String.format("%s@localhost", CommonFunctions.randomString(4)), "password");
     }
+
+
 }

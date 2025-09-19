@@ -8,7 +8,7 @@ import java.io.IOException;
 public class LoginTests extends TestBase{
 
     @Test
-    public void canLogin() throws IOException {
+    public void canLogin()  {
         app.http().login("administrator", "root");
         Assertions.assertTrue(app.http().isLoggedIn());
     }
