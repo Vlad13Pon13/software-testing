@@ -17,7 +17,7 @@ public class UserRegistrationTest extends TestBase{
     public void canRegisterUser(User user) {
        var mail = String.format("%s@localhost",user.name());
        //Создали почту + старт регистрации аккаунта
-       app.jamesCli().addUser(mail, user.password());
+       app.jamesApi().addUser(mail, user.password());
        app.user().startRegisterUser(user, mail);
 
        //получили url из письма и после почистили ящик
