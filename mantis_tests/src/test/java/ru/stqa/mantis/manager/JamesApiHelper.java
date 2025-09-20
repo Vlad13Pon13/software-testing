@@ -27,6 +27,7 @@ public class JamesApiHelper extends HelperBase {
                 .put(body)
                 .build();
         try (Response response = client.newCall(request).execute()) {
+            String res = response.toString();
             Assertions.assertEquals(204, response.code());
             if (!response.isSuccessful()) throw new RuntimeException("Unexpected code " + response);
         } catch (IOException e) {

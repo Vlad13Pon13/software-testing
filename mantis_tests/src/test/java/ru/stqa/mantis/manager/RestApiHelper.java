@@ -1,13 +1,16 @@
 package ru.stqa.mantis.manager;
 
+import coomon.CommonFunctions;
 import io.swagger.client.ApiClient;
 import io.swagger.client.ApiException;
+import io.swagger.client.ApiResponse;
 import io.swagger.client.Configuration;
 import io.swagger.client.api.IssuesApi;
+import io.swagger.client.api.UserApi;
 import io.swagger.client.auth.ApiKeyAuth;
-import io.swagger.client.model.Identifier;
-import io.swagger.client.model.Issue;
+import io.swagger.client.model.*;
 import model.IssueData;
+import model.UserForApi;
 
 public class RestApiHelper extends HelperBase{
     public RestApiHelper(ApplicationManager applicationManager) {
@@ -36,6 +39,29 @@ public class RestApiHelper extends HelperBase{
         } catch (ApiException e) {
             new RuntimeException(e);
         }
+
+    }
+
+    public void registrationUser(UserForApi user){
+        User body = new User();
+        body.setUsername(user.userName());
+        body.setRealName(user.realName());
+        body.setPassword(user.password());
+        body.setEmail(user.email());
+        body.setEnabled(user.enabled());
+        body.setProtected(user.protect());
+        var access = new AccessLevel();
+        access.setId(user.accessLevel());
+        body.setAccessLevel(access);
+
+        UserApi startRegistrationUser = new UserApi();
+        try {
+            var response = startRegistrationUser.userAddWithHttpInfo(body);
+            System.out.println(response + "");
+        } catch (ApiException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 }
