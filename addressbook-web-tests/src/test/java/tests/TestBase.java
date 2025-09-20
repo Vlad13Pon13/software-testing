@@ -26,7 +26,7 @@ public class TestBase {
 
     }
 
-    @AfterEach
+  //  @AfterEach
     public void dataBaseConsistency(){
         app.jdbcHelper().consistency();
 

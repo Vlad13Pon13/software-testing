@@ -1,5 +1,6 @@
 package manager;
 
+import io.qameta.allure.Step;
 import models.ContactData;
 import models.GroupData;
 import org.openqa.selenium.By;
@@ -24,6 +25,7 @@ public class ContactHelper extends HelperBase {
         }
     }
 
+    @Step
     public void createNewContact(ContactData data) {
         openHomePage();
         initContactCreation();
@@ -75,6 +77,7 @@ public class ContactHelper extends HelperBase {
 
     }
 
+    @Step
     public void removeAllContact() {
         openHomePage();
         selectAllForDelete();
@@ -104,6 +107,7 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//input[@id='MassCB']"));
     }
 
+    @Step
     private void removeContacts() {
         click(By.xpath("//input[@value='Delete']"));
     }
@@ -111,9 +115,9 @@ public class ContactHelper extends HelperBase {
     public int countContact() {
         openHomePage();
         return applicationManager.webDriver.findElements(By.name("selected[]")).size();
-    }
+    };
 
-    ;
+    @Step
 
     public void modifyContact(ContactData contact, ContactData data) {
         openHomePage();
@@ -136,6 +140,7 @@ public class ContactHelper extends HelperBase {
         click(By.xpath(String.format("//a[@href='edit.php?id=%s']", contact.getId())));
     }
 
+    @Step
     public List<ContactData> getList() {
         openHomePage();
         var contacts = new ArrayList<ContactData>();
@@ -160,6 +165,7 @@ public class ContactHelper extends HelperBase {
 
     }
 
+    @Step
     public void removeContact() {
         openHomePage();
         selectContact();
@@ -186,6 +192,7 @@ public class ContactHelper extends HelperBase {
         click(By.cssSelector(String.format("input[value='%s']", contact.getId())));
     }
 
+    @Step
     public void removeContactInGroup(GroupData group, ContactData contact) {
         openHomePage();
         selectGroupWithContacts(group);

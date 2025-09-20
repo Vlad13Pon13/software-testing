@@ -1,5 +1,6 @@
 package manager;
 
+import io.qameta.allure.Step;
 import models.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -19,6 +20,7 @@ public class GroupHelper extends HelperBase{
         click(By.linkText("groups"));
     }
 
+    @Step
     public void createGroup(GroupData group) {
         openGroupsPage();
         initGroupCreation();
@@ -38,6 +40,7 @@ public class GroupHelper extends HelperBase{
         returnToGroupsPage();
     }
 
+    @Step
     public void removeOneGroup(GroupData data){
         openGroupsPage();
         selectGroup(data);
@@ -47,6 +50,7 @@ public class GroupHelper extends HelperBase{
 
     }
 
+    @Step
     public void modifyGroup(GroupData group, GroupData modyfyGroup) {
         openGroupsPage();
         selectGroup(group);
@@ -87,6 +91,7 @@ public class GroupHelper extends HelperBase{
 
 
 
+    @Step
     private void selectAllGroup(){
         applicationManager.webDriver
                 .findElements(By.name("selected[]"))
@@ -110,6 +115,7 @@ public class GroupHelper extends HelperBase{
         return applicationManager.webDriver.findElements(By.name("selected[]")).size();
     }
 
+    @Step
     public List<GroupData> getList() {
         openGroupsPage();
         List<WebElement> spans = applicationManager.webDriver.findElements(By.cssSelector("span.group"));

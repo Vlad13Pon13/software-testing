@@ -1,5 +1,6 @@
 package manager;
 
+import io.qameta.allure.Step;
 import models.ContactData;
 import models.GroupData;
 
@@ -14,6 +15,7 @@ public class JdbcHelper  extends HelperBase {
         super(applicationManager);
     }
 
+    @Step
     public ArrayList<GroupData> getGroupListJdbc() {
         var groups = new ArrayList<GroupData>();
         try (var connection = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
@@ -34,6 +36,7 @@ public class JdbcHelper  extends HelperBase {
         return groups;
     }
 
+    @Step
     public Long getGroupCountJdbc() throws SQLException {
         try (var connection = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
              var statement = connection.createStatement();
@@ -47,6 +50,7 @@ public class JdbcHelper  extends HelperBase {
 
     }
 
+    @Step
     public ArrayList<ContactData> getContactListJdbc() throws SQLException {
         var contacts = new ArrayList<ContactData>();
         try (var connection = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
@@ -70,6 +74,7 @@ public class JdbcHelper  extends HelperBase {
         return contacts;
     }
 
+    @Step
     public Long getContactCountJdbc() throws SQLException {
         try (var connection = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
              var statement = connection.createStatement();
@@ -84,6 +89,7 @@ public class JdbcHelper  extends HelperBase {
     }
 
 
+    @Step
     public void consistency() {
         try (var connection = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
              var statement = connection.createStatement();
@@ -102,6 +108,7 @@ public class JdbcHelper  extends HelperBase {
         }
     }
 
+    @Step
     public ArrayList<ContactData> findContactWithoutGroup() throws SQLException {
         var contacts = new ArrayList<ContactData>();
         try (var connection = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
@@ -127,7 +134,7 @@ public class JdbcHelper  extends HelperBase {
         return contacts;
 
     }
-
+    @Step
     public Long getCountContactWithoutGroup() throws SQLException {
         try (var connection = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
              var statement = connection.createStatement();
@@ -143,6 +150,7 @@ public class JdbcHelper  extends HelperBase {
         }
     }
 
+    @Step
     public ArrayList<ContactData> getContactsInGroups(GroupData group) throws SQLException {
         var contacts = new ArrayList<ContactData>();
         try (var connection = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
@@ -171,6 +179,7 @@ public class JdbcHelper  extends HelperBase {
 
     }
 
+    @Step
     public Long getCountGroupWithContact() throws SQLException {
         try (var connection = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
              var statement = connection.createStatement();
@@ -187,6 +196,7 @@ public class JdbcHelper  extends HelperBase {
 
     }
 
+    @Step
     public ArrayList<GroupData> getGroupListWithoutContact() {
         var groups = new ArrayList<GroupData>();
         try (var connection = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
@@ -211,6 +221,7 @@ public class JdbcHelper  extends HelperBase {
         return groups;
     }
 
+    @Step
     public ArrayList<GroupData> getGroupListWithContact() {
         var groups = new ArrayList<GroupData>();
         try (var connection = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
