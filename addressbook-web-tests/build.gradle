@@ -5,8 +5,19 @@ plugins {
 group = 'org.example'
 version = '1.0-SNAPSHOT'
 
+def allureVersion = '2.29.0'
+def aspectJVersion = '1.9.22'
+
+
 repositories {
     mavenCentral()
+}
+
+configurations {
+    agent {
+        canBeResolved = true
+        canBeConsumed = true
+    }
 }
 
 dependencies {
@@ -22,14 +33,15 @@ dependencies {
     implementation("com.mysql:mysql-connector-j:8.3.0")
     implementation'org.hibernate:hibernate-core:6.3.0.CR1'
 
-
-
-
-
     compileOnly("org.projectlombok:lombok:1.18.38")
     annotationProcessor("org.projectlombok:lombok:1.18.38")
     testCompileOnly("org.projectlombok:lombok:1.18.38")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.38")
+
+    agent "org.aspectj:aspectjweaver:$aspectJVersion"
+
+    testImplementation platform("io.qameta.allure:allure-bom:$allureVersion")
+    testImplementation "io.qameta.allure:allure-junit5"
 }
 
 test {
@@ -41,10 +53,6 @@ test {
         systemProperty("target", project.property("target"))
     }
 
-    tasks.withType(Test).configureEach {
-        // Устанавливаем системную переменную для тестов
-        systemProperty "file.encoding", "UTF-8"
-        // Передаем JVM аргумент
-        jvmArgs = ["-Dfile.encoding=UTF-8"]
-    }
+    jvmArgs = [ "-javaagent:${configurations.agent.singleFile}" ]
+
 }

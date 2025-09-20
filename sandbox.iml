@@ -6,7 +6,7 @@
       <excludeFolder url="file://$MODULE_DIR$/sandbox/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/sandbox/build" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="openjdk-22 (2)" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

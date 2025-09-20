@@ -2,6 +2,9 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="22">
+      <module name="addressbook-web-tests" target="17" />
+      <module name="addressbook-web-tests.main" target="17" />
+      <module name="addressbook-web-tests.test" target="17" />
       <module name="mantis_tests" target="17" />
       <module name="mantis_tests.main" target="17" />
       <module name="mantis_tests.test" target="17" />
